@@ -1,4 +1,6 @@
 'use strict';
+const {Builder, By, until, promise} = require('selenium-webdriver');
+const {existsSync, mkdirSync, writeFileSync} = require('fs');
 
 class Problem {
     
@@ -74,4 +76,36 @@ function createProblem(problemData, type) {
     }
 }
 
-module.exports = {createProblem};
+const titleLocator = By.css("div[data-cy='question-title']");
+const diffLocator = By.css("div[diff]");
+const tagLocator = By.className('tag__2PqS');
+const textLocator = By.css(".question-content__JfgR > div");
+
+(async function init() {
+    console.log('Creating driver');
+    const driver = await new Builder().forBrowser('safari').build();
+    const url = process.argv[2];
+    console.log(`Opening ${url}`);
+    await driver.get(url);
+    console.log(`Waiting for page to load`);
+    await driver.wait(until.elementLocated(titleLocator));
+    const problemData = { url: url };
+    await driver.findElement(titleLocator).getText()
+        .then(title => problemData.title = title);
+    await driver.findElement(diffLocator).getAttribute('diff')
+        .then(diff => problemData.diff = diff);
+    await promise.map(driver.findElements(tagLocator), tag => tag.getText())
+        .then(tags => problemData.tags = tags);
+    await driver.findElement(textLocator).getAttribute('innerHTML')
+        .then(text => problemData.text = text);
+    const problem = createProblem(problemData, 'html');
+    console.log(problem);
+    if (!existsSync(`./${problem.title}`)) {
+        console.log(`Creating directory ${problem.title}`);
+        mkdirSync(`./${problem.title}`);
+    }
+    console.log(`Writing to file ${problem.fileName}`);
+    writeFileSync(`./${problem.title}/${problem.fileName}`, problem.format());
+    console.log('Done');
+})()
+

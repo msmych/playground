@@ -1,5 +1,10 @@
-How to load a problem:
-```
+### To load a problem:
+```bash
 npm install
-node index [leetcode problem url]
+node problem [leetcode problem url]
+```
+
+### To generate a solution template
+```bash
+node solution "[problem title]" [lang] "[solution method signature]"
 ```
