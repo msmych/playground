@@ -1,3 +1,4 @@
+'use strict';
 const {existsSync, mkdirSync, writeFileSync} = require('fs');
 
 class JavaSolution {
