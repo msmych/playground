@@ -14,13 +14,16 @@ class Solution {
         return stream(dp[dp.length - 1]).max().orElse(0);
     }
 
-    // java Solution.java rabbbit rabbit babgbag bag
+    // java Solution.java rabbbit rabbit 3 babgbag bag 5
     public static void main(String... args) {
         Solution solution = new Solution();
-        for (int i = 0; i < args.length; i += 2) {
-            String s = args[i], t = args[i + 1];
-            System.out.println(String.format("S = %s, T = %s: %d", 
-                s, t, solution.numDistinct(s, t)));
+        for (int i = 0; i < args.length; i += 3) {
+            String s = args[i];
+            String t = args[i + 1];
+            String expected = args[i + 2];
+            System.out.println(String.format(
+                "Output: %s | Expected: %s | Input: s = %s, t = %s", 
+                solution.numDistinct(s, t), expected, s, t));
         }
     }
 }
