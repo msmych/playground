@@ -18,9 +18,7 @@ class Solution {
     public static void main(String... args) {
         Solution solution = new Solution();
         for (int i = 0; i < args.length; i += 3) {
-            String s = args[i];
-            String t = args[i + 1];
-            String expected = args[i + 2];
+            String s = args[i], t = args[i + 1], expected = args[i + 2];
             System.out.println(String.format(
                 "Output: %s | Expected: %s | Input: s = %s, t = %s", 
                 solution.numDistinct(s, t), expected, s, t));

@@ -49,9 +49,9 @@ class JsonProblem extends Problem {
 class HtmlProblem extends Problem {
 
     format() {
-        return `<h1><a href="${this.url}">${this.title}</a></h1>` + 
-            `<h1><code style="color: ${this.diffColor}">${this.diff}</code></h1>` + 
-            `<h3><code>${this.tags.join(' | ')}</code></h3>` + 
+        return `<h1><a href="${this.url}">${this.title}</a></h1>\n` + 
+            `<h1><code style="color: ${this.diffColor}">${this.diff}</code></h1>\n` + 
+            `<h3><code>${this.tags.join(' | ')}</code></h3>\n` + 
             `${this.text}`;
     }
 
