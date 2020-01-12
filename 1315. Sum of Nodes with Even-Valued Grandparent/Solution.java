@@ -21,18 +21,11 @@ class Solution {
             String root = args[i], expected = args[i + 1];
             System.out.println(String.format(
                 "Output: %s | Expected: %s | Input: root = %s",
-                solution.sumEvenGrandparent(TreeNode.deserialize(root)), expected, root));
+                solution.sumEvenGrandparent(treeNode(root)), expected, root));
         }
     }
-}
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-
-    static TreeNode deserialize(String s) {
+    private static TreeNode treeNode(String s) {
         String[] vals = s.substring(1, s.length() - 1).split(",");
         if (vals[0].equals("null")) return null;
         TreeNode[] nodes = new TreeNode[vals.length];
@@ -49,4 +42,11 @@ class TreeNode {
         }
         return nodes[0];
     }
+}
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
 }

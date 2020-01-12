@@ -22,7 +22,7 @@ class JavaSolution {
         `    }\n`;
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
-            `    private static TreeNode deserialize(String s) {\n` +
+            `    private static TreeNode treeNode(String s) {\n` +
             `        String[] vals = s.substring(1, s.length() - 1).split(",");\n` +
             `        if (vals[0].equals("null")) return null;\n` +
             `        TreeNode[] nodes = new TreeNode[vals.length];\n` +
@@ -132,6 +132,7 @@ class JavaSolution {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
             case 'int[]': return `array(${name})`;
+            case 'TreeNode': return `treeNode(${name})`;
             default: return name;
         }
     }
