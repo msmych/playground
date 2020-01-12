@@ -15,6 +15,9 @@ class JavaSolution {
         `        Solution solution = new Solution();\n` +
         `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
         `            ${this.argsToVariables}\n` +
+        `            System.out.println(String.format(\n` +
+        `                "Output: %s | Expected: %s | Input: ${this.inputString}",\n` +
+        `                ${this.outputString}, expected, ${this.inputNames.join(', ')}));\n` +
         `        }\n` +
         `    }\n`;
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
@@ -37,6 +40,25 @@ class JavaSolution {
             `        return nodes[0];\n` +
             `    }\n`;
         }
+        if (new Set(this.inputTypes).has('int[]')) {
+            template += `\n` +
+            `    private static int[] array(String s) {\n` +
+            `        String[] elements = s.substring(1, s.length() - 1).split(",");\n` +
+            `        int[] arr = new int[elements.length];\n` +
+            `        for (int i = 0; i < elements.length; i++)\n` +
+            `            arr[i] = Integer.parseInt(elements[i].trim());\n` +
+            `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.outputType === 'int[]') {
+            template += `\n` +
+            `    private static String string(int[] arr) {\n` +
+            `        String s = "";\n` +
+            `        for (int n : arr) s += "," + n;\n` +
+            `        if (!s.isEmpty()) s = s.substring(1);\n` +
+            `        return "[" + s + "]";\n` +
+            `    }\n`;
+        }
         template += '}\n';
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
@@ -54,6 +76,10 @@ class JavaSolution {
         return this.signature.split(' ')[0];
     }
 
+    get methodName() {
+        return this.signature.split(' ')[1].split('(')[0];
+    }
+
     get params() {
         return this.signature
             .substring(this.signature.indexOf('(') + 1, this.signature.indexOf(')'))
@@ -62,6 +88,10 @@ class JavaSolution {
 
     get inputTypes() {
         return this.params.map(param => param.split(' ')[0]);
+    }
+
+    get inputNames() {
+        return this.params.map(param => param.split(' ')[1]);
     }
 
     get defaultResult() {
@@ -79,6 +109,31 @@ class JavaSolution {
             s += `, ${params[i]} = args[i + ${i}]`;
         }
         return s + `, expected = args[i + ${params.length}];`;
+    }
+
+    get inputString() {
+        return this.inputNames.map(name => `${name} = %s`).join(', ');
+    }
+
+    get outputString() {
+        switch (this.outputType) {
+            case 'int[]': return `string(solution.${this.methodName}(${this.callingParams}))`;
+            default: return `solution.${this.methodName}(${this.callingParams})`;
+        }
+    }
+
+    get callingParams() {
+        return this.params
+            .map(param => this.callingParam(...param.split(' ')))
+            .join(', ');
+    }
+
+    callingParam(type, name) {
+        switch (type) {
+            case 'int': return `Integer.parseInt(${name})`;
+            case 'int[]': return `array(${name})`;
+            default: return name;
+        }
     }
 
     get fileName() {
