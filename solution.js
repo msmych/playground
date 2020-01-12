@@ -1,28 +1,5 @@
 const {existsSync, mkdirSync, writeFileSync} = require('fs');
-
-class JavaSolution {
-
-    constructor(signature) {
-        this.signature = signature;
-    }
-
-    get template() {
-        return `class Solution {\n` + 
-        `    public ${this.signature} {\n` +
-        `        return 0;\n` +
-        `    }\n` +
-        `\n` + 
-        `    // java Solution.java\n` +
-        `    public static void main(String... args) {\n` +
-        `        Solution solution = new Solution();\n` +
-        `    }\n` + 
-        `}`
-    }
-
-    get fileName() {
-        return 'Solution.java';
-    }
-}
+const JavaSolution = require('./java-solution');
 
 function createSolution(lang, signature) {
     switch (lang) {
@@ -32,9 +9,6 @@ function createSolution(lang, signature) {
 }
 
 (function init() {
-    if (process.argv.length <= 2) {
-        return;
-    }
     generateSolution(process.argv[2], process.argv[3], process.argv[4]);
 })()
 
@@ -48,5 +22,3 @@ function generateSolution(title, lang, signature) {
     writeFileSync(`${title}/${solution.fileName}`, solution.template);
     console.log('Done');
 }
-
-module.exports = createSolution;
