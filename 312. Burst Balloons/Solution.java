@@ -20,7 +20,7 @@ class Solution {
         return dp[0][balloons.length - 1];
     }
 
-    // java Solution.java 3,1,5,8 167
+    // java Solution.java "[3,1,5,8]" 167
     public static void main(String... args) {
         Solution solution = new Solution();
         for (int i = 0; i < args.length; i += 2) {
@@ -32,11 +32,10 @@ class Solution {
     }
 
     private static int[] array(String s) {
-        String[] elements = s.split(",");
+        String[] elements = s.substring(1, s.length() - 1).split(",");
         int[] arr = new int[elements.length];
-        for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < elements.length; i++)
             arr[i] = Integer.parseInt(elements[i]);
-        }
         return arr;
     }
 }

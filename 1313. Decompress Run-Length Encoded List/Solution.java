@@ -23,7 +23,7 @@ class Solution {
         return original;
     }
     
-    // java Solution.java 1,2,3,4 2,4,4,4
+    // java Solution.java "[1,2,3,4]" "[2,4,4,4]"
     public static void main(String... args) {
         Solution solution = new Solution();
         for (int i = 0; i < args.length; i += 2) {
@@ -35,22 +35,17 @@ class Solution {
     }
 
     private static int[] array(String s) {
-        String[] elements = s.split(",");
+        String[] elements = s.substring(1, s.length() - 1).split(",");
         int[] arr = new int[elements.length];
-        for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < elements.length; i++)
             arr[i] = Integer.parseInt(elements[i]);
-        }
         return arr;
     }
 
     private static String string(int[] arr) {
         String s = "";
-        for (int n : arr) {
-            s += "," + n;
-        }
-        if (!s.isEmpty()) {
-            s = s.substring(1);
-        }
-        return s;
+        for (int n : arr) s += "," + n;
+        if (!s.isEmpty()) s = s.substring(1);
+        return "[" + s + "]";
     }
 }
