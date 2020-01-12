@@ -13,17 +13,13 @@ class JavaSolution {
         `    // java Solution.java\n` +
         `    public static void main(String... args) {\n` +
         `        Solution solution = new Solution();\n` +
-        `    }\n` + 
-        `}\n`
+        `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
+        `            ${this.argsToVariables}\n` +
+        `        }\n` +
+        `    }\n`;
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
-            `class TreeNode {\n` +
-            `    int val;\n` +
-            `    TreeNode left;\n` +
-            `    TreeNode right;\n` +
-            `    TreeNode(int x) { val = x; }\n` +
-            `\n` +
-            `    static TreeNode deserialize(String s) {\n` +
+            `    private static TreeNode deserialize(String s) {\n` +
             `        String[] vals = s.substring(1, s.length() - 1).split(",");\n` +
             `        if (vals[0].equals("null")) return null;\n` +
             `        TreeNode[] nodes = new TreeNode[vals.length];\n` +
@@ -39,7 +35,16 @@ class JavaSolution {
             `            nodes[i + 1] = parent.right;\n` +
             `        }\n` +
             `        return nodes[0];\n` +
-            `    }\n` +
+            `    }\n`;
+        }
+        template += '}\n';
+        if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
+            template += `\n` +
+            `class TreeNode {\n` +
+            `    int val;\n` +
+            `    TreeNode left;\n` +
+            `    TreeNode right;\n` +
+            `    TreeNode(int x) { val = x; }\n` +
             `}\n`
         }
         return template;
@@ -49,17 +54,31 @@ class JavaSolution {
         return this.signature.split(' ')[0];
     }
 
+    get params() {
+        return this.signature
+            .substring(this.signature.indexOf('(') + 1, this.signature.indexOf(')'))
+            .split(', ');
+    }
+
     get inputTypes() {
-        return this.signature.substring(this.signature.indexOf('(') + 1, this.signature.indexOf(')'))
-            .split(',')
-            .map(param => param.split(' ')[0]);
+        return this.params.map(param => param.split(' ')[0]);
     }
 
     get defaultResult() {
-        if (this.signature.startsWith('int ')) {
-            return '0';
+        switch (this.signature.split(' ')[0]) {
+            case 'int': return '0';
+            case 'int[]': return 'new int[0]';
+            default: return 'null';
         }
-        return 'null';
+    }
+
+    get argsToVariables() {
+        const params = this.params.map(param => param.split(' ')[1]);
+        let s = `String ${params[0]} = args[i]`;
+        for (let i = 1; i < params.length; i++) {
+            s += `, ${params[i]} = args[i + ${i}]`;
+        }
+        return s + `, expected = args[i + ${params.length}];`;
     }
 
     get fileName() {

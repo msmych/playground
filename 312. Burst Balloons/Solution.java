@@ -35,7 +35,7 @@ class Solution {
         String[] elements = s.substring(1, s.length() - 1).split(",");
         int[] arr = new int[elements.length];
         for (int i = 0; i < elements.length; i++)
-            arr[i] = Integer.parseInt(elements[i]);
+            arr[i] = Integer.parseInt(elements[i].trim());
         return arr;
     }
 }
