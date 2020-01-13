@@ -1,11 +1,27 @@
+import static java.lang.Math.min;
+import static java.lang.Math.max;
+
 class Solution {
     public int[][] matrixBlockSum(int[][] mat, int K) {
-        return new int[0][0];
+        int[][] blockSums = new int[mat.length][mat[0].length];
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[i].length; j++) {
+                int blockSum = 0;
+                for (int bi = max(0, i - K); bi <= min(mat.length - 1, i + K); bi++) {
+                    for (int bj = max(0, j - K); bj <= min(mat[i].length - 1, j + K); bj++) {
+                        blockSum += mat[bi][bj];
+                    }
+                }
+                blockSums[i][j] = blockSum;
+            }
+        }
+        return blockSums;
     }
 
-    // java Solution.java "[[1,2,3],[4,5,6],[7,8,9]]" 1 "[[12,21,16],[27,45,33],[24,39,28]]" "[[1,2,3],[4,5,6],[7,8,9]]" 2 "[[45,45,45],[45,45,45],[45,45,45]]"
+    // java Solution.java "[[1,2,3],[4,5,6],[7,8,9]]" 1 "[[12,21,16],[27,45,33],[24,39,28]]" "[[1,2,3],[4,5,6],[7,8,9]]" 2 "[[45,45,45],[45,45,45],[45,45,45]]" "[[67,64,78],[99,98,38],[82,46,46],[6,52,55],[55,99,45]]" 3 "[[731,731,731],[930,930,930],[930,930,930],[930,930,930],[721,721,721]]"
     public static void main(String... args) {
         Solution solution = new Solution();
+        args = new String[]{"[[67,64,78],[99,98,38],[82,46,46],[6,52,55],[55,99,45]]", "3", "[?]"};
         for (int i = 0; i < args.length; i += 3) {
             String mat = args[i], K = args[i + 1], expected = args[i + 2];
             System.out.println(String.format(
