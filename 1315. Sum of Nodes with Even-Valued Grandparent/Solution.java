@@ -26,7 +26,7 @@ class Solution {
     }
 
     private static TreeNode treeNode(String s) {
-        String[] vals = s.substring(1, s.length() - 1).split(",");
+        String[] vals = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");
         if (vals[0].equals("null")) return null;
         TreeNode[] nodes = new TreeNode[vals.length];
         nodes[0] = new TreeNode(Integer.parseInt(vals[0]));

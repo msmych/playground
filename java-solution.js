@@ -43,10 +43,26 @@ class JavaSolution {
         if (new Set(this.inputTypes).has('int[]')) {
             template += `\n` +
             `    private static int[] array(String s) {\n` +
-            `        String[] elements = s.substring(1, s.length() - 1).split(",");\n` +
+            `        String[] elements = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
             `        int[] arr = new int[elements.length];\n` +
             `        for (int i = 0; i < elements.length; i++)\n` +
-            `            arr[i] = Integer.parseInt(elements[i].trim());\n` +
+            `            arr[i] = Integer.parseInt(elements[i]);\n` +
+            `        return arr;\n` +
+            `    }\n`;
+        }
+        if (new Set(this.inputTypes).has('int[][]')) {
+            template += `\n` +
+            `    private static int[][] array(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return new int[0][0];\n` +
+            `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
+            `        if (rows[0].isEmpty()) return new int[0][0];\n` +
+            `        int[][] arr = new int[rows.length][rows[0].split(",").length];\n` +
+            `        for (int i = 0; i < arr.length; i++) {\n` +
+            `            String[] elements = rows[i].split(",");\n` +
+            `            for (int j = 0; j < arr[i].length; j++)\n` +
+            `                arr[i][j] = Integer.parseInt(elements[j]);\n` +
+            `        }\n` +
             `        return arr;\n` +
             `    }\n`;
         }
@@ -58,6 +74,19 @@ class JavaSolution {
             `        if (!s.isEmpty()) s = s.substring(1);\n` +
             `        return "[" + s + "]";\n` +
             `    }\n`;
+        } else if (this.outputType === 'int[][]') {
+            template += `\n` +
+            `    private static String string(int[][] arr) {\n` +
+            `        String s = "";\n` +
+            `        for (int[] row : arr) {\n` +
+            `            String r = "";\n` +
+            `            for (int n : row) r += "," + n;\n` +
+            `            if (row.length > 0) r = r.substring(1);\n` +
+            `            s += ",[" + r + "]";\n` +
+            `        }\n` +
+            `        if (arr.length > 0) s = s.substring(1);\n` +
+            `        return "[" + s + "]";\n` +
+            `    }\n`;
         }
         template += '}\n';
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
@@ -67,7 +96,7 @@ class JavaSolution {
             `    TreeNode left;\n` +
             `    TreeNode right;\n` +
             `    TreeNode(int x) { val = x; }\n` +
-            `}\n`
+            `}\n`;
         }
         return template;
     }
@@ -98,6 +127,7 @@ class JavaSolution {
         switch (this.signature.split(' ')[0]) {
             case 'int': return '0';
             case 'int[]': return 'new int[0]';
+            case 'int[][]': return 'new int[0][0]';
             default: return 'null';
         }
     }
@@ -117,7 +147,8 @@ class JavaSolution {
 
     get outputString() {
         switch (this.outputType) {
-            case 'int[]': return `string(solution.${this.methodName}(${this.callingParams}))`;
+            case 'int[]': 
+            case 'int[][]': return `string(solution.${this.methodName}(${this.callingParams}))`;
             default: return `solution.${this.methodName}(${this.callingParams})`;
         }
     }
@@ -131,7 +162,8 @@ class JavaSolution {
     callingParam(type, name) {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
-            case 'int[]': return `array(${name})`;
+            case 'int[]': 
+            case 'int[][]': return `array(${name})`;
             case 'TreeNode': return `treeNode(${name})`;
             default: return name;
         }

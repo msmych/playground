@@ -35,10 +35,10 @@ class Solution {
     }
 
     private static int[] array(String s) {
-        String[] elements = s.substring(1, s.length() - 1).split(",");
+        String[] elements = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");
         int[] arr = new int[elements.length];
         for (int i = 0; i < elements.length; i++)
-            arr[i] = Integer.parseInt(elements[i].trim());
+            arr[i] = Integer.parseInt(elements[i]);
         return arr;
     }
 

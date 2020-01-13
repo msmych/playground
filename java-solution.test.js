@@ -38,3 +38,12 @@ test('should generate twoSum solution template', () => {
     expect(solution.template).toMatch('private static int[] array(String s)');
     expect(solution.template).toMatch('private static String string(int[] arr)');
 });
+
+test('should generate matrixBlockSum solution template', () => {
+    const solution = new JavaSolution('int[][] matrixBlockSum(int[][] mat, int K)');
+    expect(solution.template).toMatch('int[][] matrixBlockSum(int[][] mat, int K)');
+    expect(solution.template).toMatch('return new int[0][0];');
+    expect(solution.template).toMatch('string(solution.matrixBlockSum(array(mat), Integer.parseInt(K))), expected, mat, K))');
+    expect(solution.template).toMatch('private static int[][] array(String s)');
+    expect(solution.template).toMatch('private static String string(int[][] arr)');
+});
