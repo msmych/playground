@@ -12,8 +12,8 @@ class JavaSolution {
         `\n` + 
         `    // java Solution.java\n` +
         `    public static void main(String... args) {\n` +
-        `        Solution solution = new Solution();\n` +
         `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
+        `            Solution solution = new Solution();\n` +
         `            ${this.argsToVariables}\n` +
         `            System.out.println(String.format(\n` +
         `                "Output: %s | Expected: %s | Input: ${this.inputString}",\n` +

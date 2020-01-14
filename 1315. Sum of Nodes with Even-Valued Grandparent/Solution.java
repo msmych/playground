@@ -16,8 +16,8 @@ class Solution {
 
     // java Solution.java "[6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]" 18
     public static void main(String... args) {
-        Solution solution = new Solution();
         for (int i = 0; i < args.length; i += 2) {
+            Solution solution = new Solution();
             String root = args[i], expected = args[i + 1];
             System.out.println(String.format(
                 "Output: %s | Expected: %s | Input: root = %s",

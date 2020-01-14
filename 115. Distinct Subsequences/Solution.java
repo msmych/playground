@@ -16,8 +16,8 @@ class Solution {
 
     // java Solution.java rabbbit rabbit 3 babgbag bag 5
     public static void main(String... args) {
-        Solution solution = new Solution();
         for (int i = 0; i < args.length; i += 3) {
+            Solution solution = new Solution();
             String s = args[i], t = args[i + 1], expected = args[i + 2];
             System.out.println(String.format(
                 "Output: %s | Expected: %s | Input: s = %s, t = %s", 

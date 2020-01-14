@@ -25,8 +25,8 @@ class Solution {
     
     // java Solution.java "[1,2,3,4]" "[2,4,4,4]"
     public static void main(String... args) {
-        Solution solution = new Solution();
         for (int i = 0; i < args.length; i += 2) {
+            Solution solution = new Solution();
             String nums = args[i], expected = args[i + 1];
             System.out.println(String.format(
                 "Output: %s | Expected: %s | Input: nums = %s",
