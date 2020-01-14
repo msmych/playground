@@ -12,7 +12,7 @@ function createSolution(lang, signature) {
     generateSolution(process.argv[2], process.argv[3], process.argv[4]);
 })()
 
-function generateSolution(title, lang, signature) {
+function generateSolution(lang, signature, title) {
     if (!existsSync(title)) {
         console.log(`Creating directory ${title}`);
         mkdirSync(title);
