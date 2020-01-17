@@ -1,11 +1,11 @@
 const JavaSolution = require('./java-solution');
 
 test('should generate numDistinct solution template', () => {
-    const solution = new JavaSolution('int numDistinct(String s, String t)');
+    const solution = new JavaSolution('int numDistinct(String s, String t)', ['rabbbit', 'rabbit', '3', 'babgbag', 'bag', '5']);
     expect(solution.template).toMatch('class Solution');
     expect(solution.template).toMatch('public int numDistinct(String s, String t)');
     expect(solution.template).toMatch('return 0;');
-    expect(solution.template).toMatch('// java Solution.java')
+    expect(solution.template).toMatch('// java Solution.java "rabbbit" "rabbit" "3" "babgbag" "bag" "5"')
     expect(solution.template).toMatch('public static void main(String... args)');
     expect(solution.template).toMatch('Solution solution = new Solution();');
     expect(solution.template).toMatch('String s = args[i], t = args[i + 1], expected = args[i + 2]');

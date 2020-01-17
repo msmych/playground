@@ -1,7 +1,11 @@
 class JavaSolution {
 
-    constructor(signature) {
+    constructor(signature, args) {
+        if (!signature) {
+            throw new Error('Missing method signature');
+        }
         this.signature = signature;
+        this.args = args ? args : [];
     }
 
     get template() {
@@ -10,7 +14,7 @@ class JavaSolution {
         `        return ${this.defaultResult};\n` +
         `    }\n` +
         `\n` + 
-        `    // java Solution.java\n` +
+        `    // java Solution.java ${this.args.map(arg => `"${arg}"`).join(' ')}\n` +
         `    public static void main(String... args) {\n` +
         `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
         `            Solution solution = new Solution();\n` +
