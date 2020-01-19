@@ -17,7 +17,6 @@ class JavaSolution {
         `    // java Solution.java ${this.args.map(arg => `"${arg}"`).join(' ')}\n` +
         `    public static void main(String... args) {\n` +
         `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
-        `            Solution solution = new Solution();\n` +
         `            ${this.argsToVariables}\n` +
         `            System.out.println(String.format(\n` +
         `                "Output: %s | Expected: %s | Input: ${this.inputString}",\n` +
@@ -157,8 +156,8 @@ class JavaSolution {
     get outputString() {
         switch (this.outputType) {
             case 'int[]': 
-            case 'int[][]': return `string(solution.${this.methodName}(${this.callingParams}))`;
-            default: return `solution.${this.methodName}(${this.callingParams})`;
+            case 'int[][]': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
+            default: return `new Solution().${this.methodName}(${this.callingParams})`;
         }
     }
 
