@@ -24,6 +24,10 @@ class JavaSolution {
         `                ${this.outputString}, expected, ${this.inputNames.join(', ')}));\n` +
         `        }\n` +
         `    }\n`;
+        if (this.outputType.startsWith('List')) {
+            template = 'import java.util.List;\n' + 
+                'import java.util.ArrayList;\n\n' + template;
+        }
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
@@ -132,6 +136,7 @@ class JavaSolution {
             case 'int': return '0';
             case 'int[]': return 'new int[0]';
             case 'int[][]': return 'new int[0][0]';
+            case 'List<String>': return 'new ArrayList<>()';
             default: return 'null';
         }
     }
