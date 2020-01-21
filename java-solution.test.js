@@ -50,7 +50,12 @@ test('should generate matrixBlockSum solution template', () => {
 test('should generate printVertically solution template', () => {
     const solution = new JavaSolution('List<String> printVertically(String s)');
     expect(solution.template).toMatch('import java.util.List');
-    expect(solution.template).toMatch('import java.util.ArrayList');
     expect(solution.template).toMatch('List<String> printVertically(String s)');
-    expect(solution.template).toMatch('return new ArrayList<>();');
+});
+
+test('should generate removeLeafNodes solution template', () => {
+    const solution = new JavaSolution('TreeNode removeLeafNodes(TreeNode root, int target)');
+    expect(solution.template).toMatch('TreeNode removeLeafNodes(TreeNode root, int target)');
+    expect(solution.template).toMatch('string(new Solution().removeLeafNodes(treeNode(root), Integer.parseInt(target))), expected, root, target))');
+    expect(solution.template).toMatch('private static String string(TreeNode root)');
 });

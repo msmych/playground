@@ -24,24 +24,21 @@ class JavaSolution {
         `        }\n` +
         `    }\n`;
         if (this.outputType.startsWith('List')) {
-            template = 'import java.util.List;\n' + 
-                'import java.util.ArrayList;\n\n' + template;
+            template = 'import java.util.List;\n\n' + template;
         }
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
-            `        String[] vals = s.substring(1, s.length() - 1).split(",");\n` +
-            `        if (vals[0].equals("null")) return null;\n` +
+            `        String[] vals = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
+            `        if (vals[0].equals("[]")) return null;\n` +
             `        TreeNode[] nodes = new TreeNode[vals.length];\n` +
             `        nodes[0] = new TreeNode(Integer.parseInt(vals[0]));\n` +
-            `        for (int i = 1, k = 1; i < vals.length - 1; i += 2) {\n` +
-            `            TreeNode parent = nodes[i - k++];\n` +
-            `            if (parent == null) continue;\n` +
-            `            parent.left = vals[i].equals("null")\n` +
-            `                ? null : new TreeNode(Integer.parseInt(vals[i]));\n` +
+            `        for (int i = 1, k = 1; i < vals.length; i += 2) {\n` +
+            `            TreeNode parent = nodes[i - k] == null ? nodes[i - --k] : nodes[i - k++];\n` +
+            `            parent.left = vals[i].equals("null") ? null : new TreeNode(Integer.parseInt(vals[i]));\n` +
             `            nodes[i] = parent.left;\n` +
-            `            parent.right = vals[i + 1].equals("null")\n` +
-            `                ? null : new TreeNode(Integer.parseInt(vals[i + 1]));\n` +
+            `            if (i + 1 >= vals.length) break;\n` +
+            `            parent.right = vals[i + 1].equals("null") ? null : new TreeNode(Integer.parseInt(vals[i + 1]));\n` +
             `            nodes[i + 1] = parent.right;\n` +
             `        }\n` +
             `        return nodes[0];\n` +
@@ -94,6 +91,31 @@ class JavaSolution {
             `        if (arr.length > 0) s = s.substring(1);\n` +
             `        return "[" + s + "]";\n` +
             `    }\n`;
+        } else if (this.outputType === 'TreeNode') {
+            template += `\n` +
+            `    private static String string(TreeNode root) {\n` +
+            `        if (root == null) return "[]";\n` +
+            `        String s = "";\n` +
+            `        TreeNode[] nodes = new TreeNode[]{root};\n` +
+            `        for (boolean hasNodes = true; hasNodes;) {\n` +
+            `            hasNodes = false;\n` +
+            `            String level = "";\n` +
+            `            TreeNode[] next = new TreeNode[2 * nodes.length];\n` +
+            `            for (int i = 0; i < nodes.length; i++) {\n` +
+            `                level += nodes[i] == null ? "null," : nodes[i].val + ",";\n` +
+            `                if (nodes[i] != null) {\n` +
+            `                    hasNodes = true;\n` +
+            `                    next[2 * i] = nodes[i].left;\n` +
+            `                    next[2 * i + 1] = nodes[i].right;\n` +
+            `                }\n` +
+            `            }\n` +
+            `            while (level.endsWith("null,null,")) level = level.substring(0, level.length() - 5);\n` +
+            `            s += level;\n` +
+            `            nodes = next;\n` +
+            `        }\n` +
+            `        while (s.endsWith("null,")) s = s.substring(0, s.length() - 5);\n` +
+            `        return "[" + s.substring(0, s.length() - 1) + "]";\n` +
+            `    }\n`;
         }
         template += '}\n';
         if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
@@ -135,7 +157,6 @@ class JavaSolution {
             case 'int': return '0';
             case 'int[]': return 'new int[0]';
             case 'int[][]': return 'new int[0][0]';
-            case 'List<String>': return 'new ArrayList<>()';
             default: return 'null';
         }
     }
@@ -156,7 +177,8 @@ class JavaSolution {
     get outputString() {
         switch (this.outputType) {
             case 'int[]': 
-            case 'int[][]': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
+            case 'int[][]': 
+            case 'TreeNode': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
             default: return `new Solution().${this.methodName}(${this.callingParams})`;
         }
     }
