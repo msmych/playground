@@ -190,6 +190,7 @@ class JavaSolution {
             case 'int': return '0';
             case 'int[]': return 'new int[0]';
             case 'int[][]': return 'new int[0][0]';
+            case 'String': return '""';
             default: return 'null';
         }
     }

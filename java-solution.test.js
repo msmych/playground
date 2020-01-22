@@ -68,3 +68,10 @@ test('should generate insertionSortList solution template', () => {
     expect(solution.template).toMatch('private static String string(ListNode head)');
     expect(solution.template).toMatch('class ListNode');
 });
+
+test('should generate largestNumber solution template', () => {
+    const solution = new JavaSolution('String largestNumber(int[] nums)');
+    expect(solution.template).toMatch('String largestNumber(int[] nums)');
+    expect(solution.template).toMatch('return "";');
+});
+
