@@ -1,20 +1,48 @@
 import java.util.List;
 import java.util.ArrayList;
 
-import static java.util.Comparator.naturalOrder;
-
 class MedianFinder {
 
     private final List<Integer> list = new ArrayList<>();
 
     /** initialize your data structure here. */
-    public MedianFinder() {
-        
-    }
+    public MedianFinder() {}
     
     public void addNum(int num) {
-        list.add(num);
-        list.sort(naturalOrder());
+        if (list.isEmpty()) {
+            list.add(num);
+        } else {
+            int left = 0, right = list.size() - 1;
+            while (left < right - 1) {
+                int mid = left + (right - left) / 2;
+                int m = list.get(mid);
+                if (mid != 0 && mid != list.size() - 1 && list.get(mid - 1) == m && m == list.get(mid + 1)) {
+                    if (num < m) {
+                        right = mid - 1;
+                    } else {
+                        left = mid + 1;
+                    }
+                    continue;
+                } else if (mid == 0 || num < list.get(mid - 1)) {
+                    right = mid - 1;
+                } else if (num < list.get(mid)) {
+                    list.add(mid, num);
+                    return;
+                } else if (mid == list.size() - 1 || num < list.get(mid - 1)) {
+                    list.add(mid + 1, num);
+                    return;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            if (num < list.get(left)) {
+                list.add(left, num);
+            } else if (num < list.get(right)) {
+                list.add(right, num);
+            } else {
+                list.add(right + 1, num);
+            }
+        }
     }
     
     public double findMedian() {
@@ -34,6 +62,11 @@ class MedianFinder {
         System.out.println(String.format(
             "Median: %s | Expected: %s", 
             finder.findMedian(), 2.0));
+        finder.addNum(2);
+        finder.addNum(2);
+        finder.addNum(2);
+        finder.addNum(3);
+        finder.addNum(1);
     }
 }
 
