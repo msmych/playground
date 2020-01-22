@@ -26,7 +26,47 @@ class JavaSolution {
         if (this.outputType.startsWith('List')) {
             template = 'import java.util.List;\n\n' + template;
         }
-        if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
+        if (this.inputTypes.includes('ListNode')) {
+            template += `\n` +
+            `    private static ListNode listNode(String s) {\n` +
+            `        if (s.equals("null")) return null;\n` +
+            `        String[] elements = s.split("->");\n` +
+            `        ListNode dummy = new ListNode(0);\n` +
+            `        ListNode node = dummy;\n` +
+            `        for (String element : elements) {\n` +
+            `            node.next = new ListNode(Integer.parseInt(element));\n` +
+            `            node = node.next;\n` +
+            `        }\n` +
+            `        return dummy.next;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('int[]')) {
+            template += `\n` +
+            `    private static int[] array(String s) {\n` +
+            `        String[] elements = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
+            `        int[] arr = new int[elements.length];\n` +
+            `        for (int i = 0; i < elements.length; i++)\n` +
+            `            arr[i] = Integer.parseInt(elements[i]);\n` +
+            `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('int[][]')) {
+            template += `\n` +
+            `    private static int[][] array(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return new int[0][0];\n` +
+            `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
+            `        if (rows[0].isEmpty()) return new int[0][0];\n` +
+            `        int[][] arr = new int[rows.length][rows[0].split(",").length];\n` +
+            `        for (int i = 0; i < arr.length; i++) {\n` +
+            `            String[] elements = rows[i].split(",");\n` +
+            `            for (int j = 0; j < arr[i].length; j++)\n` +
+            `                arr[i][j] = Integer.parseInt(elements[j]);\n` +
+            `        }\n` +
+            `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('TreeNode')) {
             template += `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
             `        String[] vals = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
@@ -42,32 +82,6 @@ class JavaSolution {
             `            nodes[i + 1] = parent.right;\n` +
             `        }\n` +
             `        return nodes[0];\n` +
-            `    }\n`;
-        }
-        if (new Set(this.inputTypes).has('int[]')) {
-            template += `\n` +
-            `    private static int[] array(String s) {\n` +
-            `        String[] elements = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
-            `        int[] arr = new int[elements.length];\n` +
-            `        for (int i = 0; i < elements.length; i++)\n` +
-            `            arr[i] = Integer.parseInt(elements[i]);\n` +
-            `        return arr;\n` +
-            `    }\n`;
-        }
-        if (new Set(this.inputTypes).has('int[][]')) {
-            template += `\n` +
-            `    private static int[][] array(String s) {\n` +
-            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
-            `        if (s.isEmpty()) return new int[0][0];\n` +
-            `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
-            `        if (rows[0].isEmpty()) return new int[0][0];\n` +
-            `        int[][] arr = new int[rows.length][rows[0].split(",").length];\n` +
-            `        for (int i = 0; i < arr.length; i++) {\n` +
-            `            String[] elements = rows[i].split(",");\n` +
-            `            for (int j = 0; j < arr[i].length; j++)\n` +
-            `                arr[i][j] = Integer.parseInt(elements[j]);\n` +
-            `        }\n` +
-            `        return arr;\n` +
             `    }\n`;
         }
         if (this.outputType === 'int[]') {
@@ -90,6 +104,17 @@ class JavaSolution {
             `        }\n` +
             `        if (arr.length > 0) s = s.substring(1);\n` +
             `        return "[" + s + "]";\n` +
+            `    }\n`;
+        } else if (this.outputType === 'ListNode') {
+            template += `\n` +
+            `    private static String string(ListNode head) {\n` +
+            `        if (head == null) return "null";\n` +
+            `        String s = "";\n` +
+            `        while (head != null) {\n` +
+            `            s += head.val + "->";\n` +
+            `            head = head.next;\n` +
+            `        }\n` +
+            `        return s.substring(0, s.length() - 2);\n` +
             `    }\n`;
         } else if (this.outputType === 'TreeNode') {
             template += `\n` +
@@ -118,7 +143,15 @@ class JavaSolution {
             `    }\n`;
         }
         template += '}\n';
-        if (this.outputType == 'TreeNode' || this.inputTypes.includes('TreeNode')) {
+        if (this.outputType === 'ListNode' || this.inputTypes.includes('ListNode')) {
+            template += `\n` +
+            `class ListNode {\n` +
+            `    int val;\n` +
+            `    ListNode next;\n` +
+            `    ListNode(int x) { val = x; }\n` +
+            `}\n`;
+        }
+        if (this.outputType === 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
             `class TreeNode {\n` +
             `    int val;\n` +
@@ -176,8 +209,9 @@ class JavaSolution {
 
     get outputString() {
         switch (this.outputType) {
-            case 'int[]': 
-            case 'int[][]': 
+            case 'int[]':
+            case 'int[][]':
+            case 'ListNode':
             case 'TreeNode': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
             default: return `new Solution().${this.methodName}(${this.callingParams})`;
         }
@@ -194,6 +228,7 @@ class JavaSolution {
             case 'int': return `Integer.parseInt(${name})`;
             case 'int[]': 
             case 'int[][]': return `array(${name})`;
+            case 'ListNode': return `listNode(${name})`;
             case 'TreeNode': return `treeNode(${name})`;
             default: return name;
         }

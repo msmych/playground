@@ -59,3 +59,12 @@ test('should generate removeLeafNodes solution template', () => {
     expect(solution.template).toMatch('string(new Solution().removeLeafNodes(treeNode(root), Integer.parseInt(target))), expected, root, target))');
     expect(solution.template).toMatch('private static String string(TreeNode root)');
 });
+
+test('should generate insertionSortList solution template', () => {
+    const solution = new JavaSolution('ListNode insertionSortList(ListNode head)');
+    expect(solution.template).toMatch('ListNode insertionSortList(ListNode head)');
+    expect(solution.template).toMatch('string(new Solution().insertionSortList(listNode(head))), expected, head))');
+    expect(solution.template).toMatch('private static ListNode listNode(String s)');
+    expect(solution.template).toMatch('private static String string(ListNode head)');
+    expect(solution.template).toMatch('class ListNode');
+});
