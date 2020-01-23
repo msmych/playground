@@ -1,8 +1,23 @@
-import java.util.List;
-
 class Solution {
     public ListNode insertionSortList(ListNode head) {
-        return null;
+        ListNode dummy = new ListNode(0);
+        while (head != null) {
+            ListNode node = dummy;
+            while (true) {
+                if (node.next == null) {
+                    node.next = new ListNode(head.val);
+                    break;
+                } else if (head.val <= node.next.val) {
+                    ListNode n = node.next;
+                    node.next = new ListNode(head.val);
+                    node.next.next = n;
+                    break;
+                }
+                node = node.next;
+            }
+            head = head.next;
+        }
+        return dummy.next;
     }
 
     // java Solution.java "4->2->1->3" "1->2->3->4" "-1->5->3->4->0" "-1->0->3->4->5"
@@ -38,6 +53,7 @@ class Solution {
     }
 }
 
+// ~~~ Please don't copy to LeetCode starting from this line
 class ListNode {
     int val;
     ListNode next;

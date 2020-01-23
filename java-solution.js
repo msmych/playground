@@ -23,7 +23,7 @@ class JavaSolution {
         `                ${this.outputString}, expected, ${this.inputNames.join(', ')}));\n` +
         `        }\n` +
         `    }\n`;
-        if (this.outputType.startsWith('List')) {
+        if (this.outputType.startsWith('List<')) {
             template = 'import java.util.List;\n\n' + template;
         }
         if (this.inputTypes.includes('ListNode')) {
@@ -145,6 +145,7 @@ class JavaSolution {
         template += '}\n';
         if (this.outputType === 'ListNode' || this.inputTypes.includes('ListNode')) {
             template += `\n` +
+            `// ~~~ Please don't copy to LeetCode starting from this line\n` +
             `class ListNode {\n` +
             `    int val;\n` +
             `    ListNode next;\n` +
