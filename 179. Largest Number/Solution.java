@@ -1,9 +1,17 @@
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.joining;
+
 class Solution {
     public String largestNumber(int[] nums) {
-        return null;
+        return stream(nums).allMatch(n -> n == 0) 
+            ? "0" 
+            : stream(nums)
+                .mapToObj(String::valueOf)
+                .sorted((a, b) -> - (a + b).compareTo(b + a))
+                .collect(joining());
     }
 
-    // java Solution.java "[10,2]" "210" "[3,30,34,5,9]" "9534330" "[121,12]" "12121"
+    // java Solution.java "[10,2]" "210" "[3,30,34,5,9]" "9534330" "[121,12]" "12121" "[0, 0]" 0
     public static void main(String... args) {
         for (int i = 0; i < args.length; i += 2) {
             String nums = args[i], expected = args[i + 1];
