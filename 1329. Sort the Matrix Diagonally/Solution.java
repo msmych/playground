@@ -1,10 +1,37 @@
+import static java.lang.Math.min;
+import static java.util.Arrays.sort;
+
 class Solution {
     public int[][] diagonalSort(int[][] mat) {
-        return new int[0][0];
+        if (mat.length == 1) {
+            return mat;
+        }
+        for (int i = 0; i < mat.length - 1; i++) {
+            int[] arr = new int[min(mat.length - i, mat[0].length)];
+            for (int j = 0; j < min(mat.length - i, mat[0].length); j++) {
+                arr[j] = mat[i + j][j];
+            }
+            sort(arr);
+            for (int j = 0; j < min(mat.length - i, mat[0].length); j++) {
+                mat[i + j][j] = arr[j];
+            }
+        }
+        for (int j = 1; j < mat[0].length - 1; j++) {
+            int[] arr = new int[min(mat.length, mat[0].length - j)];
+            for (int i = 0; i < min(mat.length, mat[0].length - j); i++) {
+                arr[i] = mat[i][j + i];
+            }
+            sort(arr);
+            for (int i = 0; i < min(mat.length, mat[0].length - j); i++) {
+                mat[i][j + i] = arr[i];
+            }
+        }
+        return mat;
     }
 
-    // java Solution.java "[[3,3,1,1],[2,2,1,2],[1,1,1,2]]" "[[1,1,1,1],[1,2,2,2],[1,2,3,3]]"
+    // java Solution.java "[[3,3,1,1],[2,2,1,2],[1,1,1,2]]" "[[1,1,1,1],[1,2,2,2],[1,2,3,3]]" "[[11,25,66,1,69,7],[23,55,17,45,15,52],[75,31,36,44,58,8],[22,27,33,25,68,4],[84,28,14,11,5,50]]" "[[5,17,4,1,52,7],[11,11,25,45,8,69],[14,23,25,44,58,15],[22,27,31,36,50,66],[84,28,75,33,55,68]]" "[[37,98,82,45,42]]" "[[37,98,82,45,42]]" "[[75,21,13,24,8],[24,100,40,49,62]]" "[[75,21,13,24,8],[24,100,40,49,62]]"
     public static void main(String... args) {
+        new Solution().diagonalSort(array("[[3,3,1,1],[2,2,1,2],[1,1,1,2]]"));
         for (int i = 0; i < args.length; i += 2) {
             String mat = args[i], expected = args[i + 1];
             System.out.println(String.format(
