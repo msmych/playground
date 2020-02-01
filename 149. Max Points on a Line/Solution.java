@@ -32,7 +32,10 @@ class Solution {
                     xmap.put(y, 1);
                     map.put(x, xmap);
                 }
-                max = max(max, map.get(x).get(y));
+                int line = map.get(x).get(y);
+                if (line > max) {
+                    max = line;
+                }
             }
             if (max + overlap + 1 > count) {
                 count = max + overlap + 1;
