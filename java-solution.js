@@ -14,7 +14,7 @@ class JavaSolution {
         `        return ${this.defaultResult};\n` +
         `    }\n` +
         `\n` + 
-        `    // java Solution.java ${this.args.map(arg => `"${arg}"`).join(' ')}\n` +
+        `    // java Solution.java ${this.args.map(arg => `"${arg.replace(/\r?\n|\r/g, "")}"`).join(' ')}\n` +
         `    public static void main(String... args) {\n` +
         `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
         `            ${this.argsToVariables}\n` +
