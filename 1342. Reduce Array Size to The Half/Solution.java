@@ -1,6 +1,28 @@
+import java.util.List;
+
+import static java.util.Arrays.stream;
+import static java.util.Comparator.reverseOrder;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
+import static java.util.stream.Collectors.toList;
+
 class Solution {
     public int minSetSize(int[] arr) {
-        return 0;
+        if (arr.length == 1) {
+            return 1;
+        }
+        List<Integer> occurrences = stream(arr)
+            .boxed()
+            .collect(groupingBy(n -> n, summingInt(n -> 1)))
+            .values()
+            .stream()
+            .sorted(reverseOrder())
+            .collect(toList()); 
+        int i = 0;
+        for (int sum = 0; sum < arr.length / 2; i++) {
+            sum += occurrences.get(i);
+        }
+        return i; 
     }
 
     // java Solution.java "[3,3,3,3,5,5,5,2,2,7]" "2" "[7,7,7,7,7,7]" "1" "[1,9]" "1" "[1000,1000,3,7]" "1" "[1,2,3,4,5,6,7,8,9,10]" "5"
