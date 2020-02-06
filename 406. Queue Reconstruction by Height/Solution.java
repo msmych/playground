@@ -1,9 +1,28 @@
+import static java.util.Arrays.sort;
+import static java.util.Arrays.fill;
+import static java.util.Comparator.comparingInt;
+
 class Solution {
     public int[][] reconstructQueue(int[][] people) {
-        return new int[0][0];
+        sort(people, comparingInt(p -> p[0]));
+        int[][] queue = new int[people.length][2];
+        fill(queue, new int[]{-1, -1});
+        for (int[] person : people) {
+            int i = 0;
+            for (int k = 0; k < person[1]; i++) {
+                if (queue[i][0] == -1 || queue[i][0] >= person[0]) {
+                    k++;
+                }
+            }
+            while (queue[i][0] > -1) {
+                i++;
+            }
+            queue[i] = person;
+        }
+        return queue;
     }
 
-    // java Solution.java "[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]" "[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]"
+    // java Solution.java "[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]" "[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]" "[[2,4],[3,4],[9,0],[0,6],[7,1],[6,0],[7,3],[2,5],[1,1],[8,0]]" "[[6,0],[1,1],[8,0],[7,1],[9,0],[2,4],[0,6],[2,5],[3,4],[7,3]]"
     public static void main(String... args) {
         for (int i = 0; i < args.length; i += 2) {
             String people = args[i], expected = args[i + 1];
