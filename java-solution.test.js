@@ -76,3 +76,9 @@ test('should generate largestNumber solution template', () => {
     expect(solution.template).toMatch('return "";');
 });
 
+test('should generate checkIfExist solution template', () => {
+    const solution = new JavaSolution('boolean checkIfExist(int[] arr)');
+    expect(solution.template).toMatch('boolean checkIfExist(int[] arr)');
+    expect(solution.template).toMatch('return false');
+});
+

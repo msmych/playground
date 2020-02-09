@@ -191,6 +191,7 @@ class JavaSolution {
             case 'int': return '0';
             case 'int[]': return 'new int[0]';
             case 'int[][]': return 'new int[0][0]';
+            case 'boolean': return 'false';
             case 'String': return '""';
             default: return 'null';
         }
