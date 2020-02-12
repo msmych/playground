@@ -82,3 +82,8 @@ test('should generate checkIfExist solution template', () => {
     expect(solution.template).toMatch('return false');
 });
 
+test('should generate angleClock solution template', () => {
+    const solution = new JavaSolution('double angleClock(int hour, int minutes)');
+    expect(solution.template).toMatch('double angleClock(int hour, int minutes)');
+    expect(solution.template).toMatch('return 0.0');
+});
