@@ -14,7 +14,7 @@ class JavaSolution {
         `        return ${this.defaultResult};\n` +
         `    }\n` +
         `\n` + 
-        `    // java Solution.java ${this.args.map(arg => `"${arg.replace(/\r?\n|\r/g, "")}"`).join(' ')}\n` +
+        `    // java Solution.java ${this.argsVals}\n` +
         `    public static void main(String... args) {\n` +
         `        for (int i = 0; i < args.length; i += ${this.params.length + 1}) {\n` +
         `            ${this.argsToVariables}\n` +
@@ -62,6 +62,22 @@ class JavaSolution {
             `            String[] elements = rows[i].split(",");\n` +
             `            for (int j = 0; j < arr[i].length; j++)\n` +
             `                arr[i][j] = Integer.parseInt(elements[j]);\n` +
+            `        }\n` +
+            `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('char[][]')) {
+            template += `\n` +
+            `    private static char[][] array(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return new char[0][0];\n` +
+            `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
+            `        if (rows[0].isEmpty()) return new char[0][0];\n` +
+            `        char[][] arr = new char[rows.length][rows[0].split(",").length];\n` +
+            `        for (int i = 0; i < arr.length; i++) {\n` +
+            `            String[] elements = rows[i].split(",");\n` +
+            `            for (int j = 0; j < arr[i].length; j++)\n` +
+            `                arr[i][j] = elements[j].charAt(0);\n` +
             `        }\n` +
             `        return arr;\n` +
             `    }\n`;
@@ -198,6 +214,12 @@ class JavaSolution {
         }
     }
 
+    get argsVals() {
+        return this.args
+            .map(arg => `"${arg.replace(/\r?\n|\r/g, "").replace(/#/g, "\\#")}"`)
+            .join(' ')
+    }
+
     get argsToVariables() {
         const params = this.params.map(param => param.split(' ')[1]);
         let s = `String ${params[0]} = args[i]`;
@@ -231,7 +253,8 @@ class JavaSolution {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
             case 'int[]': 
-            case 'int[][]': return `array(${name})`;
+            case 'int[][]': 
+            case 'char[][]': return `array(${name})`;
             case 'ListNode': return `listNode(${name})`;
             case 'TreeNode': return `treeNode(${name})`;
             default: return name;

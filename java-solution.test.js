@@ -87,3 +87,10 @@ test('should generate angleClock solution template', () => {
     expect(solution.template).toMatch('double angleClock(int hour, int minutes)');
     expect(solution.template).toMatch('return 0.0');
 });
+
+test('should generate maxStudents solution template', () => {
+    const solution = new JavaSolution('int maxStudents(char[][] seats)');
+    expect(solution.template).toMatch('int maxStudents(char[][] seats)');
+    expect(solution.template).toMatch('new Solution().maxStudents(array(seats)), expected, seats))');
+    expect(solution.template).toMatch('private static char[][] array(String s)');
+});
