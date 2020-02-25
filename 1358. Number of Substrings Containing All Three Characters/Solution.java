@@ -1,6 +1,14 @@
+import static java.util.Arrays.stream;
+
 class Solution {
     public int numberOfSubstrings(String s) {
-        return 0;
+        int count = 0;
+        int[] letters = new int[]{-1, -1, -1};
+        for (int i = 0; i < s.length(); i++) {
+            letters[s.charAt(i) - 'a'] = i;
+            count += 1 + stream(letters).min().getAsInt();
+        }
+        return count;
     }
 
     // java Solution.java "abcabc" "10" "aaacb" "3" "abc" "1"
