@@ -94,3 +94,11 @@ test('should generate maxStudents solution template', () => {
     expect(solution.template).toMatch('new Solution().maxStudents(array(seats)), expected, seats))');
     expect(solution.template).toMatch('private static char[][] array(String s)');
 });
+
+test('should generate rankTeams solution template', () => {
+    const solution = new JavaSolution('String rankTeams(String[] votes)');
+    expect(solution.template).toMatch('String rankTeams(String[] votes)');
+    expect(solution.template).toMatch('new Solution().rankTeams(array(votes)), expected, votes))');
+    expect(solution.template).toMatch('private static String[] array(String s)');
+});
+

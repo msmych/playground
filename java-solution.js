@@ -50,6 +50,13 @@ class JavaSolution {
             `        return arr;\n` +
             `    }\n`;
         }
+        if (this.inputTypes.includes('String[]')) {
+            template += `\n` +
+            `    private static String[] array(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        return s.isEmpty() ? new String[0] : s.split(",");\n` +
+            `    }\n`;
+        }
         if (this.inputTypes.includes('int[][]')) {
             template += `\n` +
             `    private static int[][] array(String s) {\n` +
@@ -253,6 +260,7 @@ class JavaSolution {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
             case 'int[]': 
+            case 'String[]':
             case 'int[][]': 
             case 'char[][]': return `array(${name})`;
             case 'ListNode': return `listNode(${name})`;
