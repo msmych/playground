@@ -30,7 +30,7 @@ class JavaSolution {
             template += `\n` +
             `    private static ListNode listNode(String s) {\n` +
             `        if (s.equals("null")) return null;\n` +
-            `        String[] elements = s.split("->");\n` +
+            `        String[] elements = s.replace("[", "").replace("]", "").replaceAll("->", ",").split(",");\n` +
             `        ListNode dummy = new ListNode(0);\n` +
             `        ListNode node = dummy;\n` +
             `        for (String element : elements) {\n` +

@@ -12,7 +12,8 @@ public class TreeParser {
             "[1,1,1]",
             "[]",
             "[1,2,3]",
-            "[1,2,3,null,5,null,4]"
+            "[1,2,3,null,5,null,4]",
+            "[1,4,4,null,2,2,null,1,null,6,8,null,null,null,null,1,3]"
         };
         for (String tree : trees) {
             TreeNode treeNode = treeNode(tree);
