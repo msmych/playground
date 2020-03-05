@@ -22,6 +22,7 @@ test('should generate sumEvenGrandparent solution template', () => {
     expect(solution.template).toMatch('"Output: %s | Expected: %s | Input: root = %s"');
     expect(solution.template).toMatch('new Solution().sumEvenGrandparent(treeNode(root)), expected, root');
     expect(solution.template).toMatch('private static TreeNode treeNode(String s)');
+    expect(solution.template).toMatch(`// ~~~ Please don't copy to LeetCode starting from this line`);
     expect(solution.template).toMatch('class TreeNode');
 });
 

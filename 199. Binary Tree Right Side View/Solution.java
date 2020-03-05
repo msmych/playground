@@ -1,9 +1,28 @@
 import java.util.List;
+import java.util.ArrayList;
 
 class Solution {
+
+    private final List<Integer> view = new ArrayList<>();
+    private int depth = 0;
+
     public List<Integer> rightSideView(TreeNode root) {
-        return null;
+        next(root, 1);
+        return view;
     }
+
+    private void next(TreeNode node, int depth) {
+        if (node == null) {
+            return;
+        }
+        if (depth > this.depth) {
+            view.add(node.val);
+            this.depth = depth;
+        }
+        next(node.right, depth + 1);
+        next(node.left, depth + 1);
+    }
+
 
     // java Solution.java "[1,2,3,null,5,null,4]" "[1, 3, 4]"
     public static void main(String... args) {

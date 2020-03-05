@@ -177,6 +177,7 @@ class JavaSolution {
         }
         if (this.outputType === 'TreeNode' || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
+            `// ~~~ Please don't copy to LeetCode starting from this line\n` +
             `class TreeNode {\n` +
             `    int val;\n` +
             `    TreeNode left;\n` +
