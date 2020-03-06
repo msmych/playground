@@ -1,8 +1,51 @@
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+
+import static java.util.Collections.emptySet;
+import static java.util.stream.Collectors.toList;
 
 class Solution {
+
+    private final Map<Set<Integer>, Boolean> combinations = new HashMap<>();
+
+    private int k;
+    private int n;
+
     public List<List<Integer>> combinationSum3(int k, int n) {
-        return null;
+        this.k = k;
+        this.n = n;
+        nextCombinations(emptySet());
+        return combinations.entrySet().stream()
+            .filter(e -> e.getValue())
+            .map(Map.Entry::getKey)
+            .map(ArrayList::new)
+            .collect(toList());
+    }
+    
+    private void nextCombinations(Set<Integer> nums) {
+        if (nums.size() > k) {
+            return;
+        }
+        if (nums.size() == k) {
+            combinations.put(nums, nums.stream().mapToInt(num -> num).sum() == n);
+            return;
+        }
+        if (combinations.containsKey(nums)) {
+            return;
+        }
+        for (int i = 1; i <= 9; i++) {
+            if (nums.contains(i)) {
+                continue;
+            }
+            Set<Integer> next = new HashSet<>(nums);
+            next.add(i);
+            nextCombinations(next);
+        }
+        combinations.put(nums, false);
     }
 
     // java Solution.java "3" "7" "[[1,2,4]]" "3" "9" "[[1,2,6], [1,3,5], [2,3,4]]"
