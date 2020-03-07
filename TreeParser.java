@@ -3,6 +3,7 @@ public class TreeParser {
     public static void main(String... args) {
         String[] trees = new String[]{
             "[6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]",
+            "[1,2,3,4,5,6]",
             "[1,2,3,2,null,2,4]",
             "[1,null,3,null,4]",
             "[1,3,3,3,2]",
