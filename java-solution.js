@@ -90,21 +90,26 @@ class JavaSolution {
             `    }\n`;
         }
         if (this.inputTypes.includes('TreeNode')) {
-            template += `\n` +
+            template = 'import java.util.Stack;\n\n' + template + `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
-            `        String[] vals = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
-            `        if (vals[0].equals("[]")) return null;\n` +
-            `        TreeNode[] nodes = new TreeNode[vals.length];\n` +
-            `        nodes[0] = new TreeNode(Integer.parseInt(vals[0]));\n` +
-            `        for (int i = 1, k = 1; i < vals.length; i += 2) {\n` +
-            `            TreeNode parent = nodes[i - k] == null ? nodes[i - --k] : nodes[i - k++];\n` +
-            `            parent.left = vals[i].equals("null") ? null : new TreeNode(Integer.parseInt(vals[i]));\n` +
-            `            nodes[i] = parent.left;\n` +
-            `            if (i + 1 >= vals.length) break;\n` +
-            `            parent.right = vals[i + 1].equals("null") ? null : new TreeNode(Integer.parseInt(vals[i + 1]));\n` +
-            `            nodes[i + 1] = parent.right;\n` +
+            `        s = s.replace("[", "").replace("]", "").replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return null;\n` +
+            `        String[] elements = s.split(",");\n` +
+            `        TreeNode[] nodes  = new TreeNode[elements.length];\n` +
+            `        Stack<TreeNode> stack = new Stack<>();\n` +
+            `        for (int i = elements.length - 1, n = 0; i >= 0; i--, n++) {\n` +
+            `            TreeNode node = (elements[i].equals("null")) ? null : new TreeNode(Integer.parseInt(elements[i]));\n` +
+            `            nodes[elements.length - n - 1] = node;\n` +
+            `            stack.push(node);\n` +
             `        }\n` +
-            `        return nodes[0];\n` +
+            `        TreeNode root = stack.pop();\n` +
+            `        for (TreeNode node : nodes) {\n` +
+            `            if (node != null) {\n` +
+            `                if (!stack.empty()) node.left = stack.pop();\n` +
+            `                if (!stack.empty()) node.right = stack.pop();\n` +
+            `            }\n` +
+            `        }\n` +
+            `        return root;\n` +
             `    }\n`;
         }
         if (this.outputType === 'int[]') {

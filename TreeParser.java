@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class TreeParser {
 
     public static void main(String... args) {
@@ -14,7 +16,9 @@ public class TreeParser {
             "[]",
             "[1,2,3]",
             "[1,2,3,null,5,null,4]",
-            "[1,4,4,null,2,2,null,1,null,6,8,null,null,null,null,1,3]"
+            "[1,4,4,null,2,2,null,1,null,6,8,null,null,null,null,1,3]",
+            "[1,null,1,1,1,null,null,1,1,null,1,null,null,null,1,null,1]",
+            "[1,1,1,null,1,null,null,1,1,null,1]"
         };
         for (String tree : trees) {
             TreeNode treeNode = treeNode(tree);
@@ -23,19 +27,24 @@ public class TreeParser {
     }
 
     private static TreeNode treeNode(String s) {
-        String[] vals = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");
-        if (vals[0].isEmpty()) return null;
-        TreeNode[] nodes = new TreeNode[vals.length];
-        nodes[0] = new TreeNode(Integer.parseInt(vals[0]));
-        for (int i = 1, k = 1; i < vals.length; i += 2) {
-            TreeNode parent = nodes[i - k] == null ? nodes[i - --k] : nodes[i - k++];
-            parent.left = vals[i].equals("null") ? null : new TreeNode(Integer.parseInt(vals[i]));
-            nodes[i] = parent.left;
-            if (i + 1 >= vals.length) break;
-            parent.right = vals[i + 1].equals("null") ? null : new TreeNode(Integer.parseInt(vals[i + 1]));
-            nodes[i + 1] = parent.right;
+        s = s.replace("[", "").replace("]", "").replaceAll(" ", "");
+        if (s.isEmpty()) return null;
+        String[] elements = s.split(",");
+        TreeNode[] nodes  = new TreeNode[elements.length];
+        Stack<TreeNode> stack = new Stack<>();
+        for (int i = elements.length - 1, n = 0; i >= 0; i--, n++) {
+            TreeNode node = (elements[i].equals("null")) ? null : new TreeNode(Integer.parseInt(elements[i]));
+            nodes[elements.length - n - 1] = node;
+            stack.push(node);
         }
-        return nodes[0];
+        TreeNode root = stack.pop();
+        for (TreeNode node : nodes) {
+            if (node != null) {
+                if (!stack.empty()) node.left = stack.pop();
+                if (!stack.empty()) node.right = stack.pop();
+            }
+        }
+        return root;
     }
 
     private static String string(TreeNode root) {
