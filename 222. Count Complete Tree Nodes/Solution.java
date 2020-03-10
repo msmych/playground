@@ -1,6 +1,9 @@
 class Solution {
     public int countNodes(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        return 1 + countNodes(root.left) + countNodes(root.right);
     }
 
     // java Solution.java "[1,2,3,4,5,6]" "6"
