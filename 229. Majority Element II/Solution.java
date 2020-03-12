@@ -1,8 +1,20 @@
 import java.util.List;
+import java.util.Map;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
 
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        return null;
+        return stream(nums)
+            .mapToObj(n -> n)
+            .collect(groupingBy(n -> n, summingInt(n -> 1)))
+            .entrySet().stream()
+            .filter(e -> e.getValue() > nums.length / 3)
+            .map(Map.Entry::getKey)
+            .collect(toList());
     }
 
     // java Solution.java "[3,2,3]" "[3]" "[1,1,1,3,3,2,2,2]" "[1,2]"
