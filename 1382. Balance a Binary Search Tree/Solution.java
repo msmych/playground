@@ -1,8 +1,35 @@
 import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
 
 class Solution {
     public TreeNode balanceBST(TreeNode root) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        List<Integer> vals = traverse(root);
+        return balanced(vals, 0, vals.size() - 1);
+    }
+
+    private List<Integer> traverse(TreeNode node) {
+        if (node == null) {
+            return new ArrayList<>();
+        }
+        List<Integer> vals = traverse(node.left);
+        vals.add(node.val);
+        vals.addAll(traverse(node.right));
+        return vals;
+    }
+
+    private TreeNode balanced(List<Integer> vals, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        TreeNode node = new TreeNode(vals.get(mid));
+        node.left = balanced(vals, start, mid - 1);
+        node.right = balanced(vals, mid + 1, end);
+        return node;
     }
 
     // java Solution.java "[1,null,2,null,3,null,4,null,null]" "[2,1,3,null,null,null,4]"
