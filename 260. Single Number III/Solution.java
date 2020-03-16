@@ -1,6 +1,17 @@
+import java.util.Set;
+import java.util.HashSet;
+
 class Solution {
     public int[] singleNumber(int[] nums) {
-        return new int[0];
+        Set<Integer> singles = new HashSet<>();
+        for (int num : nums) {
+            if (singles.contains(num)) {
+                singles.remove(num);
+            } else {
+                singles.add(num);
+            }
+        }
+        return singles.stream().mapToInt(n -> n).toArray();
     }
 
     // java Solution.java "[1,2,1,3,2,5]" "[3,5]"
