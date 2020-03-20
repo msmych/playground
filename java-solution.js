@@ -43,7 +43,9 @@ class JavaSolution {
         if (this.inputTypes.includes('int[]')) {
             template += `\n` +
             `    private static int[] array(String s) {\n` +
-            `        String[] elements = s.substring(1, s.length() - 1).replaceAll(" ", "").split(",");\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return new int[0];\n` +
+            `        String[] elements = s.split(",");\n` +
             `        int[] arr = new int[elements.length];\n` +
             `        for (int i = 0; i < elements.length; i++)\n` +
             `            arr[i] = Integer.parseInt(elements[i]);\n` +
