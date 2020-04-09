@@ -19,7 +19,7 @@ class Solution {
         return steps;
     }
 
-    // java Solution.java "1101" "6" "10" "1" "1" "0" "1111011110000011100000110001011011110010111001010111110001" 0
+    // java Solution.java "1101" "6" "10" "1" "1" "0" "1111011110000011100000110001011011110010111001010111110001" 85
     public static void main(String... args) {
         for (int i = 0; i < args.length; i += 2) {
             String s = args[i], expected = args[i + 1];
