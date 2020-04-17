@@ -1,9 +1,19 @@
 class Solution {
     public int minPatches(int[] nums, int n) {
-        return 0;
+        long min = 1;
+        int patches = 0;
+        for (var i = 0; min <= n;) {
+            if (i < nums.length && nums[i] <= min) {
+                min += nums[i++];
+            } else {
+                min += min;
+                patches++;
+            }
+        }
+        return patches;
     }
 
-    // java Solution.java "[1,3]" "6" "1" "[1,5,10]" "20" "2" "[1,2,2]" "5" "0"
+    // java Solution.java "[1,3]" "6" "1" "[1,5,10]" "20" "2" "[1,2,2]" "5" "0" "[]" 7 3
     public static void main(String... args) {
         for (int i = 0; i < args.length; i += 3) {
             String nums = args[i], n = args[i + 1], expected = args[i + 2];
