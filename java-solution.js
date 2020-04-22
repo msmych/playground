@@ -23,8 +23,13 @@ class JavaSolution {
         `                ${this.outputString}, expected, ${this.inputNames.join(', ')}));\n` +
         `        }\n` +
         `    }\n`;
-        if (this.outputType.startsWith('List<')) {
-            template = 'import java.util.List;\n\n' + template;
+        if (this.outputType.startsWith('List<') || this.inputTypes.includes('List<List<String>>')) {
+            let imports = 'import java.util.List;\n';
+            if (this.inputTypes.includes('List<List<String>>')) {
+                imports += 'import java.util.ArrayList;\n';
+            }
+            imports += '\n';
+            template = imports + template; 
         }
         if (this.inputTypes.includes('ListNode')) {
             template += `\n` +
@@ -89,6 +94,24 @@ class JavaSolution {
             `                arr[i][j] = elements[j].charAt(0);\n` +
             `        }\n` +
             `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('List<List<String>>')) {
+            template += `\n` +
+            `    private static List<List<String>> list(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return List.of();\n` +
+            `        var rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
+            `        if (rows[0].isEmpty()) return List.of();\n` +
+            `        var list = new ArrayList<List<String>>();\n` +
+            `        for (var i = 0; i < rows.length; i++) {\n` +
+            `            var elements = rows[i].split(",");\n` +
+            `            var row = new ArrayList<String>();\n` +
+            `            for (var j = 0; j < elements.length; j++)\n` +
+            `                row.add(elements[j]);\n` +
+            `            list.add(row);\n` +
+            `        }\n` + 
+            `        return list;\n` +
             `    }\n`;
         }
         if (this.inputTypes.includes('TreeNode')) {
@@ -271,6 +294,7 @@ class JavaSolution {
             case 'String[]':
             case 'int[][]': 
             case 'char[][]': return `array(${name})`;
+            case 'List<List<String>>': return `list(${name})`;
             case 'ListNode': return `listNode(${name})`;
             case 'TreeNode': return `treeNode(${name})`;
             default: return name;

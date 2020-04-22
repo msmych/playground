@@ -103,3 +103,12 @@ test('should generate rankTeams solution template', () => {
     expect(solution.template).toMatch('private static String[] array(String s)');
 });
 
+test('should generate displayTable solution template', () => {
+    const solution = new JavaSolution('List<List<String>> displayTable(List<List<String>> orders)');
+    expect(solution.template).toMatch('import java.util.List');
+    expect(solution.template).toMatch('import java.util.ArrayList');
+    expect(solution.template).toMatch('List<List<String>> displayTable(List<List<String>> orders)');
+    expect(solution.template).toMatch('new Solution().displayTable(list(orders)), expected, orders))');
+    expect(solution.template).toMatch('private static List<List<String>> list(String s)');
+});
+
