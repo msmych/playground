@@ -23,9 +23,12 @@ class JavaSolution {
         `                ${this.outputString}, expected, ${this.inputNames.join(', ')}));\n` +
         `        }\n` +
         `    }\n`;
-        if (this.outputType.startsWith('List<') || this.inputTypes.includes('List<List<String>>')) {
+        if (this.outputType.startsWith('List<') || 
+                this.inputTypes.includes('List<List<Integer>>') || 
+                this.inputTypes.includes('List<List<String>>')) {
             let imports = 'import java.util.List;\n';
-            if (this.inputTypes.includes('List<List<String>>')) {
+            if (this.inputTypes.includes('List<List<Integer>>') || 
+                    this.inputTypes.includes('List<List<String>>')) {
                 imports += 'import java.util.ArrayList;\n';
             }
             imports += '\n';
@@ -94,6 +97,24 @@ class JavaSolution {
             `                arr[i][j] = elements[j].charAt(0);\n` +
             `        }\n` +
             `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('List<List<Integer>>')) {
+            template += `\n` +
+            `    private static List<List<Integer>> list(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return new ArrayList<>();\n` +
+            `        var rows = s.substring(1, s.length() - 1).split("\\],\\[");\n` +
+            `        if (rows[0].isEmpty()) return new ArrayList<>();\n` +
+            `        var list = new ArrayList<List<Integer>>();\n` +
+            `        for (int i = 0; i < rows.length; i++) {\n` +
+            `            var elements = rows[i].split(",");\n` +
+            `            var row = new ArrayList<Integer>();\n` +
+            `            for (int j = 0; j < elements.length; j++)\n` +
+            `            row.add(Integer.parseInt(elements[j]));\n` +
+            `            list.add(row);\n` +
+            `        }\n` +
+            `        return list;\n` +
             `    }\n`;
         }
         if (this.inputTypes.includes('List<List<String>>')) {
@@ -294,6 +315,7 @@ class JavaSolution {
             case 'String[]':
             case 'int[][]': 
             case 'char[][]': return `array(${name})`;
+            case 'List<List<Integer>>':
             case 'List<List<String>>': return `list(${name})`;
             case 'ListNode': return `listNode(${name})`;
             case 'TreeNode': return `treeNode(${name})`;

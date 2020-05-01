@@ -112,3 +112,11 @@ test('should generate displayTable solution template', () => {
     expect(solution.template).toMatch('private static List<List<String>> list(String s)');
 });
 
+test('should generate findDiagonalOrder solution template', () => {
+    const solution = new JavaSolution('int[] findDiagonalOrder(List<List<Integer>> nums)');
+    expect(solution.template).toMatch('import java.util.List');
+    expect(solution.template).toMatch('import java.util.ArrayList');
+    expect(solution.template).toMatch('int[] findDiagonalOrder(List<List<Integer>> nums)');
+    expect(solution.template).toMatch('string(new Solution().findDiagonalOrder(list(nums))), expected, nums))');
+    expect(solution.template).toMatch('private static List<List<Integer>> list(String s)');
+});
