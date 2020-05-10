@@ -50,7 +50,7 @@ test('should generate matrixBlockSum solution template', () => {
 
 test('should generate printVertically solution template', () => {
     const solution = new JavaSolution('List<String> printVertically(String s)');
-    expect(solution.template).toMatch('import java.util.List');
+    expect(solution.template).toMatch('import java.util.*');
     expect(solution.template).toMatch('List<String> printVertically(String s)');
 });
 
@@ -105,8 +105,7 @@ test('should generate rankTeams solution template', () => {
 
 test('should generate displayTable solution template', () => {
     const solution = new JavaSolution('List<List<String>> displayTable(List<List<String>> orders)');
-    expect(solution.template).toMatch('import java.util.List');
-    expect(solution.template).toMatch('import java.util.ArrayList');
+    expect(solution.template).toMatch('import java.util.*');
     expect(solution.template).toMatch('List<List<String>> displayTable(List<List<String>> orders)');
     expect(solution.template).toMatch('new Solution().displayTable(list(orders)), expected, orders))');
     expect(solution.template).toMatch('private static List<List<String>> list(String s)');
@@ -114,8 +113,7 @@ test('should generate displayTable solution template', () => {
 
 test('should generate findDiagonalOrder solution template', () => {
     const solution = new JavaSolution('int[] findDiagonalOrder(List<List<Integer>> nums)');
-    expect(solution.template).toMatch('import java.util.List');
-    expect(solution.template).toMatch('import java.util.ArrayList');
+    expect(solution.template).toMatch('import java.util.*');
     expect(solution.template).toMatch('int[] findDiagonalOrder(List<List<Integer>> nums)');
     expect(solution.template).toMatch('string(new Solution().findDiagonalOrder(list(nums))), expected, nums))');
     expect(solution.template).toMatch('private static List<List<Integer>> list(String s)');

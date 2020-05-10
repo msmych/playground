@@ -26,13 +26,7 @@ class JavaSolution {
         if (this.outputType.startsWith('List<') || 
                 this.inputTypes.includes('List<List<Integer>>') || 
                 this.inputTypes.includes('List<List<String>>')) {
-            let imports = 'import java.util.List;\n';
-            if (this.inputTypes.includes('List<List<Integer>>') || 
-                    this.inputTypes.includes('List<List<String>>')) {
-                imports += 'import java.util.ArrayList;\n';
-            }
-            imports += '\n';
-            template = imports + template; 
+            template = 'import java.util.*;\n\n' + template; 
         }
         if (this.inputTypes.includes('ListNode')) {
             template += `\n` +
@@ -136,7 +130,7 @@ class JavaSolution {
             `    }\n`;
         }
         if (this.inputTypes.includes('TreeNode')) {
-            template = 'import java.util.Stack;\n\n' + template + `\n` +
+            template += `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
             `        s = s.replace("[", "").replace("]", "").replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return null;\n` +
