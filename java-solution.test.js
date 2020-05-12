@@ -118,3 +118,11 @@ test('should generate findDiagonalOrder solution template', () => {
     expect(solution.template).toMatch('string(new Solution().findDiagonalOrder(list(nums))), expected, nums))');
     expect(solution.template).toMatch('private static List<List<Integer>> list(String s)');
 });
+
+test('should generate minTime solution template', () => {
+    const solution = new JavaSolution('int minTime(int n, int[][] edges, List<Boolean> hasApple)');
+    expect(solution.template).toMatch('import java.util.*');
+    expect(solution.template).toMatch('int minTime(int n, int[][] edges, List<Boolean> hasApple)');
+    expect(solution.template).toMatch('new Solution().minTime(Integer.parseInt(n), array(edges), list(hasApple)), expected, n, edges, hasApple))');
+    expect(solution.template).toMatch('private static List<Boolean> list(String s)');
+});

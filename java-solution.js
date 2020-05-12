@@ -24,6 +24,7 @@ class JavaSolution {
         `        }\n` +
         `    }\n`;
         if (this.outputType.startsWith('List<') || 
+                this.inputTypes.includes('List<Boolean>') ||
                 this.inputTypes.includes('List<List<Integer>>') || 
                 this.inputTypes.includes('List<List<String>>')) {
             template = 'import java.util.*;\n\n' + template; 
@@ -91,6 +92,19 @@ class JavaSolution {
             `                arr[i][j] = elements[j].charAt(0);\n` +
             `        }\n` +
             `        return arr;\n` +
+            `    }\n`;
+        }
+        if (this.inputTypes.includes('List<Boolean>')) {
+            template += `\n` +
+            `    private static List<Boolean> list(String s) {\n` +
+            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+            `        if (s.isEmpty()) return new ArrayList<>();\n` +
+            `        var elements = s.split(",");\n` +
+            `        var list = new ArrayList<Boolean>();\n` +
+            `        for (var element : elements) {\n` +
+            `            list.add(element.equals("true"));\n` +
+            `        }\n` +
+            `        return list;\n` +
             `    }\n`;
         }
         if (this.inputTypes.includes('List<List<Integer>>')) {
@@ -309,6 +323,7 @@ class JavaSolution {
             case 'String[]':
             case 'int[][]': 
             case 'char[][]': return `array(${name})`;
+            case 'List<Boolean>':
             case 'List<List<Integer>>':
             case 'List<List<String>>': return `list(${name})`;
             case 'ListNode': return `listNode(${name})`;
