@@ -144,6 +144,7 @@ class JavaSolution {
             `    }\n`;
         }
         if (this.inputTypes.includes('TreeNode')) {
+            template = 'import java.util.*;\n\n' + template;
             template += `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
             `        s = s.replace("[", "").replace("]", "").replaceAll(" ", "");\n` +

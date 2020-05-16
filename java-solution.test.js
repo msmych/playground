@@ -56,6 +56,7 @@ test('should generate printVertically solution template', () => {
 
 test('should generate removeLeafNodes solution template', () => {
     const solution = new JavaSolution('TreeNode removeLeafNodes(TreeNode root, int target)');
+    expect(solution.template).toMatch('import java.util.*;');
     expect(solution.template).toMatch('TreeNode removeLeafNodes(TreeNode root, int target)');
     expect(solution.template).toMatch('string(new Solution().removeLeafNodes(treeNode(root), Integer.parseInt(target))), expected, root, target))');
     expect(solution.template).toMatch('private static String string(TreeNode root)');
