@@ -1,8 +1,44 @@
 import java.util.*;
 
+import static java.util.function.Predicate.*;
+import static java.util.stream.Collectors.*;
+
 class Solution {
     public List<Integer> peopleIndexes(List<List<String>> favoriteCompanies) {
-        return null;
+        var hashCompanies = favoriteCompanies.stream()
+            .map(companies -> companies.stream()
+                .map(Object::hashCode)
+                .sorted()
+                .collect(toList()))
+            .collect(toList());
+        var people = new ArrayList<Integer>();
+        for (var i = 0; i < hashCompanies.size(); i++) {
+            var favorite = hashCompanies.get(i);
+            if (hashCompanies.stream()
+                .filter(not(favorite::equals))
+                .noneMatch(companies -> isSubset(favorite, companies))) {
+                people.add(i);
+            }
+        }
+        return people;
+    }
+
+    private boolean isSubset(List<Integer> a, List<Integer> b) {
+        if (a.equals(b)) {
+            return true;
+        }
+        if (a.size() > b.size()) {
+            return false;
+        }
+        int i = 0;
+        for (int j = 0; i < a.size() && j < b.size(); j++) {
+            if (a.get(i).equals(b.get(j))) {
+                i++;
+            } else if (b.get(j) > a.get(i)) {
+                return false;
+            }
+        }
+        return i == a.size();
     }
 
     // java Solution.java "[[leetcode,google,facebook],[google,microsoft],[google,facebook],[google],[amazon]]" "[0,1,4]" "[[leetcode,google,facebook],[leetcode,amazon],[facebook,google]]" "[0,1]" "[[leetcode],[google],[facebook],[amazon]]" "[0,1,2,3]"
