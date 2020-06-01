@@ -1,6 +1,11 @@
+import static java.util.stream.IntStream.*;
+
 class Solution {
     public boolean hasAllCodes(String s, int k) {
-        return false;
+        return rangeClosed(0, s.length() - k)
+            .mapToObj(i -> s.substring(i, i + k))
+            .distinct()
+            .count() == 1 << k;
     }
 
     // java Solution.java "00110110" "2" "true" "00110" "2" "true" "0110" "1" "true" "0110" "2" "false" "0000000001011100" "4" "false"
