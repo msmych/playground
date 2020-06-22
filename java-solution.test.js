@@ -127,3 +127,11 @@ test('should generate minTime solution template', () => {
     expect(solution.template).toMatch('new Solution().minTime(Integer.parseInt(n), array(edges), list(hasApple)), expected, n, edges, hasApple))');
     expect(solution.template).toMatch('private static List<Boolean> list(String s)');
 });
+
+test('should generate getFolderNames solution template', () => {
+    const solution = new JavaSolution('String[] getFolderNames(String[] names)');
+    expect(solution.template).toMatch('String[] getFolderNames(String[] names)');
+    expect(solution.template).toMatch('string(new Solution().getFolderNames(array(names)))');
+    expect(solution.template).toMatch('private static String string(String[] arr)');
+});
+    

@@ -175,6 +175,14 @@ class JavaSolution {
             `        if (!s.isEmpty()) s = s.substring(1);\n` +
             `        return "[" + s + "]";\n` +
             `    }\n`;
+        } else if (this.outputType === 'String[]') {
+            template += `\n` +
+            `    private static String string(String[] arr) {\n` +
+            `        var s = "";\n` +
+            `        for (var e : arr) s += "," + e;\n` +
+            `        if (!s.isEmpty()) s = s.substring(1);\n` +
+            `        return "[" + s + "]";\n` +
+            `    }\n`;
         } else if (this.outputType === 'int[][]') {
             template += `\n` +
             `    private static String string(int[][] arr) {\n` +
@@ -304,6 +312,7 @@ class JavaSolution {
     get outputString() {
         switch (this.outputType) {
             case 'int[]':
+            case 'String[]':
             case 'int[][]':
             case 'ListNode':
             case 'TreeNode': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
