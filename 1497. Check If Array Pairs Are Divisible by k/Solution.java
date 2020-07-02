@@ -1,6 +1,25 @@
+import static java.util.Arrays.*;
+import static java.util.stream.Collectors.*;
+
 class Solution {
     public boolean canArrange(int[] arr, int k) {
-        return false;
+        var frequencies = new int[k];
+        for (var n : arr) {
+            n %= k;
+            if (n < 0) {
+                n += k;
+            }
+            frequencies[n]++;
+        }
+        if (frequencies[0] % 2 != 0) {
+            return false;
+        }
+        for (var i = 1; i < k / 2; i++) {
+            if (frequencies[i] != frequencies[k - i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // java Solution.java "[1,2,3,4,5,10,6,7,8,9]" "5" "true" "[1,2,3,4,5,6]" "7" "true" "[1,2,3,4,5,6]" "10" "false" "[-10,10]" "2" "true" "[-1,1,-2,2,-3,3,-4,4]" "3" "true"
