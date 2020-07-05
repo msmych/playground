@@ -29,19 +29,12 @@ class JavaSolution {
                 this.inputTypes.includes('List<List<String>>')) {
             template = 'import java.util.*;\n\n' + template; 
         }
+        if (this.inputTypes.includes('ListNode[]')) {
+            template += this.listNodeArray();
+            template += this.listNode();
+        }
         if (this.inputTypes.includes('ListNode')) {
-            template += `\n` +
-            `    private static ListNode listNode(String s) {\n` +
-            `        if (s.equals("null")) return null;\n` +
-            `        String[] elements = s.replace("[", "").replace("]", "").replaceAll("->", ",").split(",");\n` +
-            `        ListNode dummy = new ListNode(0);\n` +
-            `        ListNode node = dummy;\n` +
-            `        for (String element : elements) {\n` +
-            `            node.next = new ListNode(Integer.parseInt(element));\n` +
-            `            node = node.next;\n` +
-            `        }\n` +
-            `        return dummy.next;\n` +
-            `    }\n`;
+            template += this.listNode();
         }
         if (this.inputTypes.includes('int[]')) {
             template += `\n` +
@@ -256,6 +249,33 @@ class JavaSolution {
         return template;
     }
 
+    listNodeArray() {
+        return `\n` +
+        `    private static ListNode[] array(String s) {\n` +
+        `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+        `        if (s.isEmpty()) return new ListNode[0];\n` +
+        `        var elements = s.split(",");\n` +
+        `        var arr = new ListNode[elements.length];\n` +
+        `        for (var i = 0; i < arr.length; i++) arr[i] = listNode(elements[i]);\n` +
+        `        return arr;\n` +
+        `    }\n`;
+    }
+
+    listNode() {
+        return `\n` +
+        `    private static ListNode listNode(String s) {\n` +
+        `        if (s.equals("null")) return null;\n` +
+        `        var elements = s.replace("[", "").replace("]", "").replaceAll("->", ",").split(",");\n` +
+        `        var dummy = new ListNode(0);\n` +
+        `        var node = dummy;\n` +
+        `        for (var el : elements) {\n` +
+        `            node.next = new ListNode(Integer.parseInt(el));\n` +
+        `            node = node.next;\n` +
+        `        }\n` +
+        `        return dummy.next;\n` +
+        `    }\n`;
+    }
+
     get outputType() {
         return this.signature.split(' ')[0];
     }
@@ -332,6 +352,7 @@ class JavaSolution {
             case 'int[]': 
             case 'String[]':
             case 'int[][]': 
+            case 'ListNode[]':
             case 'char[][]': return `array(${name})`;
             case 'List<Boolean>':
             case 'List<List<Integer>>':

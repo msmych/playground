@@ -135,3 +135,10 @@ test('should generate getFolderNames solution template', () => {
     expect(solution.template).toMatch('private static String string(String[] arr)');
 });
     
+test('should generate mergeKLists solution template', () => {
+    const solution = new JavaSolution('ListNode mergeKLists(ListNode[] lists)');
+    expect(solution.template).toMatch('ListNode mergeKLists(ListNode[] lists)');
+    expect(solution.template).toMatch('string(new Solution().mergeKLists(array(lists)))');
+    expect(solution.template).toMatch('private static ListNode[] array(String s)');
+    expect(solution.template).toMatch('private static ListNode listNode(String s)');
+});
