@@ -11,7 +11,7 @@ class JavaSolution {
     get template() {
         let template = `class Solution {\n` + 
         `    public ${this.signature} {\n` +
-        `        return ${this.defaultResult};\n` +
+        `        return${this.defaultResult};\n` +
         `    }\n` +
         `\n` + 
         `    // java Solution.java ${this.argsVals}\n` +
@@ -300,13 +300,14 @@ class JavaSolution {
 
     get defaultResult() {
         switch (this.signature.split(' ')[0]) {
-            case 'int': return '0';
-            case 'int[]': return 'new int[0]';
-            case 'int[][]': return 'new int[0][0]';
-            case 'double': return '0.0';
-            case 'boolean': return 'false';
-            case 'String': return '""';
-            default: return 'null';
+            case 'int': return ' 0';
+            case 'int[]': return ' new int[0]';
+            case 'int[][]': return ' new int[0][0]';
+            case 'double': return ' 0.0';
+            case 'boolean': return ' false';
+            case 'String': return ' ""';
+            case 'void': return '';
+            default: return ' null';
         }
     }
 

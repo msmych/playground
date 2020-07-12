@@ -142,3 +142,9 @@ test('should generate mergeKLists solution template', () => {
     expect(solution.template).toMatch('private static ListNode[] array(String s)');
     expect(solution.template).toMatch('private static ListNode listNode(String s)');
 });
+
+test('should generate nextPermutation solution template', () => {
+    const solution = new JavaSolution('void nextPermutation(int[] nums)');
+    expect(solution.template).toMatch('void nextPermutation(int[] nums)');
+    expect(solution.template).toMatch('return;');
+});
