@@ -148,3 +148,10 @@ test('should generate nextPermutation solution template', () => {
     expect(solution.template).toMatch('void nextPermutation(int[] nums)');
     expect(solution.template).toMatch('return;');
 });
+
+test('should generate myPow solution template', () => {
+    const solution = new JavaSolution('double myPow(double x, int n)');
+    expect(solution.template).toMatch('double myPow(double x, int n)');
+    expect(solution.template).toMatch('new Solution().myPow(Double.parseDouble(x), Integer.parseInt(n))');
+    expect(solution.template).toMatch('return 0.0');
+});

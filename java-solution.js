@@ -189,6 +189,8 @@ class JavaSolution {
             `        if (arr.length > 0) s = s.substring(1);\n` +
             `        return "[" + s + "]";\n` +
             `    }\n`;
+        } else if (this.outputType === 'char[][]') {
+            template += this.char2dArrayString();
         } else if (this.outputType === 'ListNode') {
             template += `\n` +
             `    private static String string(ListNode head) {\n` +
@@ -276,6 +278,21 @@ class JavaSolution {
         `    }\n`;
     }
 
+    char2dArrayString() {
+        return `\n` +
+        `    private static String string(char[][] arr) {\n` +
+        `        var s = "";\n` +
+        `        for (var row : arr) {\n` +
+        `            var r = "";\n` +
+        `            for (var c : row) r += "," + c;\n` +
+        `            if (row.length > 0) r = r.substring(1);\n` +
+        `            s += ",[" + r + "]";\n` +
+        `        }\n` +
+        `        if (arr.length > 0) s = s.substring(1);\n` +
+        `        return "[" + s + "]";\n` +
+        `    }\n`;
+    }
+
     get outputType() {
         return this.signature.split(' ')[0];
     }
@@ -350,6 +367,7 @@ class JavaSolution {
     callingParam(type, name) {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
+            case 'double': return `Double.parseDouble(${name})`;
             case 'int[]': 
             case 'String[]':
             case 'int[][]': 
