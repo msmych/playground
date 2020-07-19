@@ -19,14 +19,27 @@ class Solution {
     private Set<List<Line>> shapes = new HashSet<>();
 
     public boolean isRectangleCover(int[][] rectangles) {
-        shapes = stream(rectangles)
-            .map(r -> List.of(
-                new Line(r[0], r[1], r[0], r[3]),
-                new Line(r[0], r[3], r[2], r[3]),
-                new Line(r[2], r[3], r[2], r[1]),
-                new Line(r[2], r[1], r[0], r[1])))
-            .collect(toSet());
+        for (var rectangle : rectangles) {
+            var rect = lines(rectangle);
+            var merged = rect;
+            for (var iterator = shapes.iterator(); iterator.hasNext();) {
+                var shape = iterator.next();
+                var sharedLines = sharedLines(rect, shape);
+                if (!sharedLines.isEmpty()) {
+                    merge(merged, shape, sharedLines);
+                    iterator.remove();
+                }
+            }
+        }
         return shapes.size() == 1 && shapes.iterator().next().size() == 4; 
+    }
+
+    private List<Line> lines(int[] rectangle) {
+        return List.of(
+            new Line(r[0], r[1], r[0], r[3]),
+            new Line(r[0], r[3], r[2], r[3]),
+            new Line(r[2], r[3], r[2], r[1]),
+            new Line(r[2], r[1], r[0], r[1]));
     }
 
     // java Solution.java "[[1,1,3,3],[3,1,4,2],[3,2,4,4],[1,3,2,4],[2,3,3,4]]" "true" "[[1,1,2,3],[1,3,2,4],[3,1,4,2],[3,2,4,4]]" "false" "[[1,1,3,3],[3,1,4,2],[1,3,2,4],[3,2,4,4]]" "false" "[[1,1,3,3],[3,1,4,2],[1,3,2,4],[2,2,4,4]]" "false"
