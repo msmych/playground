@@ -1,10 +1,9 @@
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 class Solution {
     public int[] singleNumber(int[] nums) {
-        Set<Integer> singles = new HashSet<>();
-        for (int num : nums) {
+        var singles = new HashSet<Integer>();
+        for (var num : nums) {
             if (singles.contains(num)) {
                 singles.remove(num);
             } else {
