@@ -56,20 +56,7 @@ class JavaSolution {
             `    }\n`;
         }
         if (this.inputTypes.includes('int[][]')) {
-            template += `\n` +
-            `    private static int[][] array(String s) {\n` +
-            `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
-            `        if (s.isEmpty()) return new int[0][0];\n` +
-            `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
-            `        if (rows[0].isEmpty()) return new int[0][0];\n` +
-            `        int[][] arr = new int[rows.length][rows[0].split(",").length];\n` +
-            `        for (int i = 0; i < arr.length; i++) {\n` +
-            `            String[] elements = rows[i].split(",");\n` +
-            `            for (int j = 0; j < arr[i].length; j++)\n` +
-            `                arr[i][j] = Integer.parseInt(elements[j]);\n` +
-            `        }\n` +
-            `        return arr;\n` +
-            `    }\n`;
+            template += this.int2dArray();
         }
         if (this.inputTypes.includes('char[][]')) {
             template += `\n` +
@@ -249,6 +236,27 @@ class JavaSolution {
             `}\n`;
         }
         return template;
+    }
+
+    int2dArray() {
+        return `\n` +
+        `    private static int[][] array(String s) {\n` +
+        `        s = s.replace(" ", "");\n` +
+        `        if (s.equals("[[]]")) return new int[0][0];\n` +
+        `        var rows = s.substring(1, s.length() - 1).split("\\],\\[");\n` +
+        `        var arr = new int[rows.length][];\n` +
+        `        for (var i = 0; i < arr.length; i++) {\n` +
+        `            var row = rows[i].replace("[", "").replace("]", "");\n` +
+        `            if (row.isEmpty()) {\n` +
+        `                arr[i] = new int[0];\n` +
+        `                continue;\n` +
+        `            }\n` +
+        `            var els = row.split(",");\n` +
+        `            arr[i] = new int[els.length];\n` +
+        `            for (var j = 0; j < arr[i].length; j++) arr[i][j] = Integer.parseInt(els[j]);\n` +
+        `        }\n` +
+        `        return arr;\n` +
+        `    }\n`
     }
 
     listNodeArray() {
