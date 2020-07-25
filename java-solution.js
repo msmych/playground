@@ -243,7 +243,7 @@ class JavaSolution {
         `    private static int[][] array(String s) {\n` +
         `        s = s.replace(" ", "");\n` +
         `        if (s.equals("[[]]")) return new int[0][0];\n` +
-        `        var rows = s.substring(1, s.length() - 1).split("\\],\\[");\n` +
+        `        var rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
         `        var arr = new int[rows.length][];\n` +
         `        for (var i = 0; i < arr.length; i++) {\n` +
         `            var row = rows[i].replace("[", "").replace("]", "");\n` +
