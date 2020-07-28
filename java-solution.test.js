@@ -155,3 +155,10 @@ test('should generate myPow solution template', () => {
     expect(solution.template).toMatch('new Solution().myPow(Double.parseDouble(x), Integer.parseInt(n))');
     expect(solution.template).toMatch('return 0.0');
 });
+
+test('should generate leastInterval solution template', () => {
+    const solution = new JavaSolution('int leastInterval(char[] tasks, int n)');
+    expect(solution.template).toMatch('int leastInterval(char[] tasks, int n)');
+    expect(solution.template).toMatch('new Solution().leastInterval(array(tasks), Integer.parseInt(n))');
+    expect(solution.template).toMatch('private static char[] array(String s)');
+});

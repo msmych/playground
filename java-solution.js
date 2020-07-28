@@ -48,6 +48,9 @@ class JavaSolution {
             `        return arr;\n` +
             `    }\n`;
         }
+        if (this.inputTypes.includes('char[]')) {
+            template += this.intArray();
+        }
         if (this.inputTypes.includes('String[]')) {
             template += `\n` +
             `    private static String[] array(String s) {\n` +
@@ -238,6 +241,18 @@ class JavaSolution {
         return template;
     }
 
+    intArray() {
+        return `\n` +
+        `    private static char[] array(String s) {\n` +
+        `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+        `        if (s.isEmpty()) return new char[0];\n` +
+        `        var els = s.split(",");\n` +
+        `        var arr = new char[els.length];\n` +
+        `        for (var i = 0; i < els.length; i++) arr[i] = els[i].charAt(0);\n` +
+        `        return arr;\n` +
+        `    }\n`; 
+    }
+
     int2dArray() {
         return `\n` +
         `    private static int[][] array(String s) {\n` +
@@ -377,6 +392,7 @@ class JavaSolution {
             case 'int': return `Integer.parseInt(${name})`;
             case 'double': return `Double.parseDouble(${name})`;
             case 'int[]': 
+            case 'char[]':
             case 'String[]':
             case 'int[][]': 
             case 'ListNode[]':
