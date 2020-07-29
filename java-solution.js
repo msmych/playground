@@ -38,7 +38,7 @@ class JavaSolution {
         }
         if (this.inputTypes.includes('int[]')) {
             template += `\n` +
-            `    private static int[] array(String s) {\n` +
+            `    private static int[] intArray(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new int[0];\n` +
             `        String[] elements = s.split(",");\n` +
@@ -53,7 +53,7 @@ class JavaSolution {
         }
         if (this.inputTypes.includes('String[]')) {
             template += `\n` +
-            `    private static String[] array(String s) {\n` +
+            `    private static String[] stringArray(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        return s.isEmpty() ? new String[0] : s.split(",");\n` +
             `    }\n`;
@@ -63,7 +63,7 @@ class JavaSolution {
         }
         if (this.inputTypes.includes('char[][]')) {
             template += `\n` +
-            `    private static char[][] array(String s) {\n` +
+            `    private static char[][] char2dArray(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new char[0][0];\n` +
             `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
@@ -243,7 +243,7 @@ class JavaSolution {
 
     intArray() {
         return `\n` +
-        `    private static char[] array(String s) {\n` +
+        `    private static char[] charArray(String s) {\n` +
         `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
         `        if (s.isEmpty()) return new char[0];\n` +
         `        var els = s.split(",");\n` +
@@ -255,7 +255,7 @@ class JavaSolution {
 
     int2dArray() {
         return `\n` +
-        `    private static int[][] array(String s) {\n` +
+        `    private static int[][] int2dArray(String s) {\n` +
         `        s = s.replace(" ", "");\n` +
         `        if (s.equals("[[]]")) return new int[0][0];\n` +
         `        var rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
@@ -276,7 +276,7 @@ class JavaSolution {
 
     listNodeArray() {
         return `\n` +
-        `    private static ListNode[] array(String s) {\n` +
+        `    private static ListNode[] listNodeArray(String s) {\n` +
         `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
         `        if (s.isEmpty()) return new ListNode[0];\n` +
         `        var elements = s.split(",");\n` +
@@ -391,12 +391,12 @@ class JavaSolution {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
             case 'double': return `Double.parseDouble(${name})`;
-            case 'int[]': 
-            case 'char[]':
-            case 'String[]':
-            case 'int[][]': 
-            case 'ListNode[]':
-            case 'char[][]': return `array(${name})`;
+            case 'int[]': return `intArray(${name})`; 
+            case 'char[]': return `charArray(${name})`;
+            case 'String[]': return `stringArray(${name})`;
+            case 'int[][]': return `int2dArray(${name})`;
+            case 'ListNode[]': return `listNodeArray(${name})`;
+            case 'char[][]': return `char2dArray(${name})`;
             case 'List<Boolean>':
             case 'List<List<Integer>>':
             case 'List<List<String>>': return `list(${name})`;

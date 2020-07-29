@@ -34,8 +34,8 @@ test('should generate twoSum solution template', () => {
     expect(solution.template).toMatch('String nums = args[i], target = args[i + 1], expected = args[i + 2]');
     expect(solution.template).toMatch('System.out.println(String.format(');
     expect(solution.template).toMatch('"Output: %s | Expected: %s | Input: nums = %s, target = %s"');
-    expect(solution.template).toMatch('string(new Solution().twoSum(array(nums), Integer.parseInt(target))), expected, nums, target');
-    expect(solution.template).toMatch('private static int[] array(String s)');
+    expect(solution.template).toMatch('string(new Solution().twoSum(intArray(nums), Integer.parseInt(target))), expected, nums, target');
+    expect(solution.template).toMatch('private static int[] intArray(String s)');
     expect(solution.template).toMatch('private static String string(int[] arr)');
 });
 
@@ -43,8 +43,8 @@ test('should generate matrixBlockSum solution template', () => {
     const solution = new JavaSolution('int[][] matrixBlockSum(int[][] mat, int K)');
     expect(solution.template).toMatch('int[][] matrixBlockSum(int[][] mat, int K)');
     expect(solution.template).toMatch('return new int[0][0];');
-    expect(solution.template).toMatch('string(new Solution().matrixBlockSum(array(mat), Integer.parseInt(K))), expected, mat, K))');
-    expect(solution.template).toMatch('private static int[][] array(String s)');
+    expect(solution.template).toMatch('string(new Solution().matrixBlockSum(int2dArray(mat), Integer.parseInt(K))), expected, mat, K))');
+    expect(solution.template).toMatch('private static int[][] int2dArray(String s)');
     expect(solution.template).toMatch('private static String string(int[][] arr)');
 });
 
@@ -93,15 +93,15 @@ test('should generate angleClock solution template', () => {
 test('should generate maxStudents solution template', () => {
     const solution = new JavaSolution('int maxStudents(char[][] seats)');
     expect(solution.template).toMatch('int maxStudents(char[][] seats)');
-    expect(solution.template).toMatch('new Solution().maxStudents(array(seats)), expected, seats))');
-    expect(solution.template).toMatch('private static char[][] array(String s)');
+    expect(solution.template).toMatch('new Solution().maxStudents(char2dArray(seats)), expected, seats))');
+    expect(solution.template).toMatch('private static char[][] char2dArray(String s)');
 });
 
 test('should generate rankTeams solution template', () => {
     const solution = new JavaSolution('String rankTeams(String[] votes)');
     expect(solution.template).toMatch('String rankTeams(String[] votes)');
-    expect(solution.template).toMatch('new Solution().rankTeams(array(votes)), expected, votes))');
-    expect(solution.template).toMatch('private static String[] array(String s)');
+    expect(solution.template).toMatch('new Solution().rankTeams(stringArray(votes)), expected, votes))');
+    expect(solution.template).toMatch('private static String[] stringArray(String s)');
 });
 
 test('should generate displayTable solution template', () => {
@@ -124,22 +124,22 @@ test('should generate minTime solution template', () => {
     const solution = new JavaSolution('int minTime(int n, int[][] edges, List<Boolean> hasApple)');
     expect(solution.template).toMatch('import java.util.*');
     expect(solution.template).toMatch('int minTime(int n, int[][] edges, List<Boolean> hasApple)');
-    expect(solution.template).toMatch('new Solution().minTime(Integer.parseInt(n), array(edges), list(hasApple)), expected, n, edges, hasApple))');
+    expect(solution.template).toMatch('new Solution().minTime(Integer.parseInt(n), int2dArray(edges), list(hasApple)), expected, n, edges, hasApple))');
     expect(solution.template).toMatch('private static List<Boolean> list(String s)');
 });
 
 test('should generate getFolderNames solution template', () => {
     const solution = new JavaSolution('String[] getFolderNames(String[] names)');
     expect(solution.template).toMatch('String[] getFolderNames(String[] names)');
-    expect(solution.template).toMatch('string(new Solution().getFolderNames(array(names)))');
+    expect(solution.template).toMatch('string(new Solution().getFolderNames(stringArray(names)))');
     expect(solution.template).toMatch('private static String string(String[] arr)');
 });
     
 test('should generate mergeKLists solution template', () => {
     const solution = new JavaSolution('ListNode mergeKLists(ListNode[] lists)');
     expect(solution.template).toMatch('ListNode mergeKLists(ListNode[] lists)');
-    expect(solution.template).toMatch('string(new Solution().mergeKLists(array(lists)))');
-    expect(solution.template).toMatch('private static ListNode[] array(String s)');
+    expect(solution.template).toMatch('string(new Solution().mergeKLists(listNodeArray(lists)))');
+    expect(solution.template).toMatch('private static ListNode[] listNodeArray(String s)');
     expect(solution.template).toMatch('private static ListNode listNode(String s)');
 });
 
@@ -159,6 +159,6 @@ test('should generate myPow solution template', () => {
 test('should generate leastInterval solution template', () => {
     const solution = new JavaSolution('int leastInterval(char[] tasks, int n)');
     expect(solution.template).toMatch('int leastInterval(char[] tasks, int n)');
-    expect(solution.template).toMatch('new Solution().leastInterval(array(tasks), Integer.parseInt(n))');
-    expect(solution.template).toMatch('private static char[] array(String s)');
+    expect(solution.template).toMatch('new Solution().leastInterval(charArray(tasks), Integer.parseInt(n))');
+    expect(solution.template).toMatch('private static char[] charArray(String s)');
 });
