@@ -30,7 +30,7 @@ class JavaSolution {
             template = 'import java.util.*;\n\n' + template; 
         }
         if (this.inputTypes.includes('ListNode[]')) {
-            template += this.listNodeArray();
+            template += this.listNodeArr();
             template += this.listNode();
         }
         if (this.inputTypes.includes('ListNode')) {
@@ -38,7 +38,7 @@ class JavaSolution {
         }
         if (this.inputTypes.includes('int[]')) {
             template += `\n` +
-            `    private static int[] intArray(String s) {\n` +
+            `    private static int[] intArr(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new int[0];\n` +
             `        String[] elements = s.split(",");\n` +
@@ -49,21 +49,21 @@ class JavaSolution {
             `    }\n`;
         }
         if (this.inputTypes.includes('char[]')) {
-            template += this.intArray();
+            template += this.intArr();
         }
         if (this.inputTypes.includes('String[]')) {
             template += `\n` +
-            `    private static String[] stringArray(String s) {\n` +
+            `    private static String[] stringArr(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        return s.isEmpty() ? new String[0] : s.split(",");\n` +
             `    }\n`;
         }
         if (this.inputTypes.includes('int[][]')) {
-            template += this.int2dArray();
+            template += this.intArrArr();
         }
         if (this.inputTypes.includes('char[][]')) {
             template += `\n` +
-            `    private static char[][] char2dArray(String s) {\n` +
+            `    private static char[][] charArrArr(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new char[0][0];\n` +
             `        String[] rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
@@ -77,9 +77,12 @@ class JavaSolution {
             `        return arr;\n` +
             `    }\n`;
         }
+        if (this.inputTypes.includes('List<String>')) {
+            template += this.stringList();
+        }
         if (this.inputTypes.includes('List<Boolean>')) {
             template += `\n` +
-            `    private static List<Boolean> list(String s) {\n` +
+            `    private static List<Boolean> booleanList(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new ArrayList<>();\n` +
             `        var elements = s.split(",");\n` +
@@ -92,7 +95,7 @@ class JavaSolution {
         }
         if (this.inputTypes.includes('List<List<Integer>>')) {
             template += `\n` +
-            `    private static List<List<Integer>> list(String s) {\n` +
+            `    private static List<List<Integer>> integerListList(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new ArrayList<>();\n` +
             `        var rows = s.substring(1, s.length() - 1).split("\\],\\[");\n` +
@@ -110,7 +113,7 @@ class JavaSolution {
         }
         if (this.inputTypes.includes('List<List<String>>')) {
             template += `\n` +
-            `    private static List<List<String>> list(String s) {\n` +
+            `    private static List<List<String>> stringListList(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return List.of();\n` +
             `        var rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
@@ -180,7 +183,7 @@ class JavaSolution {
             `        return "[" + s + "]";\n` +
             `    }\n`;
         } else if (this.outputType === 'char[][]') {
-            template += this.char2dArrayString();
+            template += this.charArrArrString();
         } else if (this.outputType === 'ListNode') {
             template += `\n` +
             `    private static String string(ListNode head) {\n` +
@@ -241,9 +244,9 @@ class JavaSolution {
         return template;
     }
 
-    intArray() {
+    intArr() {
         return `\n` +
-        `    private static char[] charArray(String s) {\n` +
+        `    private static char[] charArr(String s) {\n` +
         `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
         `        if (s.isEmpty()) return new char[0];\n` +
         `        var els = s.split(",");\n` +
@@ -253,9 +256,9 @@ class JavaSolution {
         `    }\n`; 
     }
 
-    int2dArray() {
+    intArrArr() {
         return `\n` +
-        `    private static int[][] int2dArray(String s) {\n` +
+        `    private static int[][] intArrArr(String s) {\n` +
         `        s = s.replace(" ", "");\n` +
         `        if (s.equals("[[]]")) return new int[0][0];\n` +
         `        var rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
@@ -274,9 +277,9 @@ class JavaSolution {
         `    }\n`
     }
 
-    listNodeArray() {
+    listNodeArr() {
         return `\n` +
-        `    private static ListNode[] listNodeArray(String s) {\n` +
+        `    private static ListNode[] listNodeArr(String s) {\n` +
         `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
         `        if (s.isEmpty()) return new ListNode[0];\n` +
         `        var elements = s.split(",");\n` +
@@ -301,7 +304,7 @@ class JavaSolution {
         `    }\n`;
     }
 
-    char2dArrayString() {
+    charArrArrString() {
         return `\n` +
         `    private static String string(char[][] arr) {\n` +
         `        var s = "";\n` +
@@ -313,6 +316,18 @@ class JavaSolution {
         `        }\n` +
         `        if (arr.length > 0) s = s.substring(1);\n` +
         `        return "[" + s + "]";\n` +
+        `    }\n`;
+    }
+
+    stringList() {
+        return `\n` + 
+        `    private static List<String> stringList(String s) {\n` +
+        `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+        `        if (s.isEmpty()) return new ArrayList<>();\n` +
+        `        var els = s.split(",");\n` +
+        `        var list = new ArrayList<String>();\n` +
+        `        for (var el : els) list.add(el);\n` +
+        `        return list;\n` +
         `    }\n`;
     }
 
@@ -391,15 +406,16 @@ class JavaSolution {
         switch (type) {
             case 'int': return `Integer.parseInt(${name})`;
             case 'double': return `Double.parseDouble(${name})`;
-            case 'int[]': return `intArray(${name})`; 
-            case 'char[]': return `charArray(${name})`;
-            case 'String[]': return `stringArray(${name})`;
-            case 'int[][]': return `int2dArray(${name})`;
-            case 'ListNode[]': return `listNodeArray(${name})`;
-            case 'char[][]': return `char2dArray(${name})`;
-            case 'List<Boolean>':
-            case 'List<List<Integer>>':
-            case 'List<List<String>>': return `list(${name})`;
+            case 'int[]': return `intArr(${name})`; 
+            case 'char[]': return `charArr(${name})`;
+            case 'String[]': return `stringArr(${name})`;
+            case 'int[][]': return `intArrArr(${name})`;
+            case 'ListNode[]': return `listNodeArr(${name})`;
+            case 'char[][]': return `charArrArr(${name})`;
+            case 'List<String>': return `stringList(${name})`;
+            case 'List<Boolean>': return `booleanList(${name})`;
+            case 'List<List<Integer>>': return `integerListList(${name})`;
+            case 'List<List<String>>': return `stringListList(${name})`;
             case 'ListNode': return `listNode(${name})`;
             case 'TreeNode': return `treeNode(${name})`;
             default: return name;
