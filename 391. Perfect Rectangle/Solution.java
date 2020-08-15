@@ -1,77 +1,70 @@
 import java.util.*;
 
-import static java.util.Arrays.*;
-import static java.util.stream.Collectors.*;
-
 class Solution {
 
-    private static class Line {
-        int a, b, c;
-        boolean isHorizontal;
+    private static class Point {
+        int x, y;
 
-        Line(int a, int b, int c, boolean isHorizontal) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-            this.isHorizontal = isHorizontal;
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
 
-        Line(int x1, int y1, int x2, int y2) {
-            if (x1 == x2) {
-                this.c = x1;
-                this.a = y1 < y2 ? y1 : y2;
-                this.b = y1 < y2 ? y2 : y1;
-                this.isHorizontal = false;
-            } else {
-                this.c = y1;
-                this.a = x1 < x2 ? x1 : x2;
-                this.b = x1 < x2 ? x2 : x1;
-                this.isHorizontal = true;
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
             }
+            if (!(o instanceof Point)) {
+                return false;
+            }
+            var that = (Point) o;
+            return x == that.x && y == that.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
         }
     }
-
-    private Set<List<Line>> shapes = new HashSet<>();
 
     public boolean isRectangleCover(int[][] rectangles) {
-        for (var rectangle : rectangles) {
-            var rect = lines(rectangle);
-            var merged = rect;
-            for (var iterator = shapes.iterator(); iterator.hasNext();) {
-                var shape = iterator.next();
-                var sharedLines = sharedLines(rect, shape);
-                if (!sharedLines.isEmpty()) {
-                    merge(merged, shape, sharedLines);
-                    iterator.remove();
-                }
+        int x1 = Integer.MAX_VALUE, y1 = x1, x2 = Integer.MIN_VALUE, y2 = x2;
+        var visited = new HashSet<Point>();
+        var area = 0;
+        for (var rect : rectangles) {
+            if (rect[0] < x1) {
+                x1 = rect[0];
+            }
+            if (rect[1] < y1) {
+                y1 = rect[1];
+            }
+            if (rect[2] > x2) {
+                x2 = rect[2];
+            }
+            if (rect[3] > y2) {
+                y2 = rect[3];
+            }
+            area += (rect[2] - rect[0]) * (rect[3] - rect[1]);
+            var p1 = new Point(rect[0], rect[1]);
+            var p2 = new Point(rect[0], rect[3]);
+            var p3 = new Point(rect[2], rect[3]);
+            var p4 = new Point(rect[2], rect[1]);
+            if (!visited.add(p1)) {
+                visited.remove(p1);
+            }
+            if (!visited.add(p2)) {
+                visited.remove(p2);
+            }
+            if (!visited.add(p3)) {
+                visited.remove(p3);
+            }
+            if (!visited.add(p4)) {
+                visited.remove(p4);
             }
         }
-        return shapes.size() == 1 && shapes.iterator().next().size() == 4; 
-    }
-
-    private List<Line> lines(int[] rectangle) {
-        return List.of(
-            new Line(r[0], r[1], r[0], r[3]),
-            new Line(r[0], r[3], r[2], r[3]),
-            new Line(r[2], r[3], r[2], r[1]),
-            new Line(r[2], r[1], r[0], r[1]));
-    }
-
-    private List<Line> sharedLines(List<Line> s1, List<Line> s2) {
-        var shared = new ArrayList<Line>();
-        for (var a : s1) {
-            for (var b : s2) {
-                if (a.isHorizontal != b.isHorizontal || a.c != b.c) {
-                    continue;
-                }
-                if (a.a <= b.a && a.b >= b.a) {
-                    shared.add(new Line(b.a, min(a.b, b.b), a.c, a.isHorizontal));
-                } else if (a.a >= b.a && a.a <= b.b) {
-                    shared.add(new Line(a.a, min(a.b, b.b), a.c, a.isHorizontal));
-                }
-            }
-        }
-        return shared;
+        return visited.equals(Set.of(new Point(x1, y1), new Point(x1, y2), new Point(x2, y1), new Point(x2, y2))) && 
+            area == (x2 - x1) * (y2 - y1);
     }
 
     // java Solution.java "[[1,1,3,3],[3,1,4,2],[3,2,4,4],[1,3,2,4],[2,3,3,4]]" "true" "[[1,1,2,3],[1,3,2,4],[3,1,4,2],[3,2,4,4]]" "false" "[[1,1,3,3],[3,1,4,2],[1,3,2,4],[3,2,4,4]]" "false" "[[1,1,3,3],[3,1,4,2],[1,3,2,4],[2,2,4,4]]" "false"
