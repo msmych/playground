@@ -196,30 +196,9 @@ class JavaSolution {
             `        return s.substring(0, s.length() - 2);\n` +
             `    }\n`;
         } else if (this.outputType === 'TreeNode') {
-            template += `\n` +
-            `    private static String string(TreeNode root) {\n` +
-            `        if (root == null) return "[]";\n` +
-            `        String s = "";\n` +
-            `        TreeNode[] nodes = new TreeNode[]{root};\n` +
-            `        for (boolean hasNodes = true; hasNodes;) {\n` +
-            `            hasNodes = false;\n` +
-            `            String level = "";\n` +
-            `            TreeNode[] next = new TreeNode[2 * nodes.length];\n` +
-            `            for (int i = 0; i < nodes.length; i++) {\n` +
-            `                level += nodes[i] == null ? "null," : nodes[i].val + ",";\n` +
-            `                if (nodes[i] != null) {\n` +
-            `                    hasNodes = true;\n` +
-            `                    next[2 * i] = nodes[i].left;\n` +
-            `                    next[2 * i + 1] = nodes[i].right;\n` +
-            `                }\n` +
-            `            }\n` +
-            `            while (level.endsWith("null,null,")) level = level.substring(0, level.length() - 5);\n` +
-            `            s += level;\n` +
-            `            nodes = next;\n` +
-            `        }\n` +
-            `        while (s.endsWith("null,")) s = s.substring(0, s.length() - 5);\n` +
-            `        return "[" + s.substring(0, s.length() - 1) + "]";\n` +
-            `    }\n`;
+            template += this.treeNodeString();
+        } else if (this.outputType === 'List<TreeNode>') {
+            template += this.treeNodeListString() + this.treeNodeString();
         }
         template += '}\n';
         if (this.outputType === 'ListNode' || this.inputTypes.includes('ListNode')) {
@@ -231,7 +210,7 @@ class JavaSolution {
             `    ListNode(int x) { val = x; }\n` +
             `}\n`;
         }
-        if (this.outputType === 'TreeNode' || this.inputTypes.includes('TreeNode')) {
+        if (this.outputType.includes('TreeNode') || this.inputTypes.includes('TreeNode')) {
             template += `\n` +
             `// ~~~ Please don't copy to LeetCode starting from this line\n` +
             `class TreeNode {\n` +
@@ -277,6 +256,18 @@ class JavaSolution {
         `    }\n`
     }
 
+    stringList() {
+        return `\n` + 
+        `    private static List<String> stringList(String s) {\n` +
+        `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
+        `        if (s.isEmpty()) return new ArrayList<>();\n` +
+        `        var els = s.split(",");\n` +
+        `        var list = new ArrayList<String>();\n` +
+        `        for (var el : els) list.add(el);\n` +
+        `        return list;\n` +
+        `    }\n`;
+    }
+
     listNodeArr() {
         return `\n` +
         `    private static ListNode[] listNodeArr(String s) {\n` +
@@ -319,15 +310,41 @@ class JavaSolution {
         `    }\n`;
     }
 
-    stringList() {
-        return `\n` + 
-        `    private static List<String> stringList(String s) {\n` +
-        `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
-        `        if (s.isEmpty()) return new ArrayList<>();\n` +
-        `        var els = s.split(",");\n` +
-        `        var list = new ArrayList<String>();\n` +
-        `        for (var el : els) list.add(el);\n` +
-        `        return list;\n` +
+    treeNodeString() {
+        return `\n` +
+        `    private static String string(TreeNode root) {\n` +
+        `        if (root == null) return "[]";\n` +
+        `        String s = "";\n` +
+        `        TreeNode[] nodes = new TreeNode[]{root};\n` +
+        `        for (boolean hasNodes = true; hasNodes;) {\n` +
+        `            hasNodes = false;\n` +
+        `            String level = "";\n` +
+        `            TreeNode[] next = new TreeNode[2 * nodes.length];\n` +
+        `            for (int i = 0; i < nodes.length; i++) {\n` +
+        `                level += nodes[i] == null ? "null," : nodes[i].val + ",";\n` +
+        `                if (nodes[i] != null) {\n` +
+        `                    hasNodes = true;\n` +
+        `                    next[2 * i] = nodes[i].left;\n` +
+        `                    next[2 * i + 1] = nodes[i].right;\n` +
+        `                }\n` +
+        `            }\n` +
+        `            while (level.endsWith("null,null,")) level = level.substring(0, level.length() - 5);\n` +
+        `            s += level;\n` +
+        `            nodes = next;\n` +
+        `        }\n` +
+        `        while (s.endsWith("null,")) s = s.substring(0, s.length() - 5);\n` +
+        `        return "[" + s.substring(0, s.length() - 1) + "]";\n` +
+        `    }\n`;
+    }
+    
+    treeNodeListString() {
+        return `\n` +
+        `    private static String string(List<TreeNode> list) {\n` +
+        `        var s = "";\n` +
+        `        for (var node : list) {\n` +
+        `            s += "," + string(node);\n` +
+        `        }\n` +
+        `        return "[" + s.substring(1) + "]";\n` +
         `    }\n`;
     }
 
@@ -391,7 +408,8 @@ class JavaSolution {
             case 'String[]':
             case 'int[][]':
             case 'ListNode':
-            case 'TreeNode': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
+            case 'TreeNode':
+            case 'List<TreeNode>': return `string(new Solution().${this.methodName}(${this.callingParams}))`;
             default: return `new Solution().${this.methodName}(${this.callingParams})`;
         }
     }

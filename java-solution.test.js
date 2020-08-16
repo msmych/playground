@@ -169,3 +169,12 @@ test('should generate workBreak solution template', () => {
     expect(solution.template).toMatch('new Solution().wordBreak(s, stringList(wordDict))');
     expect(solution.template).toMatch('private static List<String> stringList(String s)');
 });
+
+test('should generate generateTrees solution template', () => {
+    const solution = new JavaSolution('List<TreeNode> generateTrees(int n)');
+    expect(solution.template).toMatch('List<TreeNode> generateTrees(int n)');
+    expect(solution.template).toMatch('string(new Solution().generateTrees(Integer.parseInt(n)))');
+    expect(solution.template).toMatch('private static String string(List<TreeNode> list)');
+    expect(solution.template).toMatch('private static String string(TreeNode root)');
+    expect(solution.template).toMatch('class TreeNode');
+});
