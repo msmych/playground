@@ -283,7 +283,7 @@ class JavaSolution {
     listNode() {
         return `\n` +
         `    private static ListNode listNode(String s) {\n` +
-        `        if (s.equals("null")) return null;\n` +
+        `        if (s.equals("null") || s.equals("[]")) return null;\n` +
         `        var elements = s.replace("[", "").replace("]", "").replaceAll("->", ",").split(",");\n` +
         `        var dummy = new ListNode(0);\n` +
         `        var node = dummy;\n` +

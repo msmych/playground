@@ -1,4 +1,5 @@
 class Solution {
+
     public int[] sortArrayByParity(int[] A) {
         for (int fast = 0, slow = -1; fast < A.length; fast++) {
             if (A[fast] % 2 == 0) {
