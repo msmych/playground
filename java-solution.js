@@ -98,7 +98,7 @@ class JavaSolution {
             `    private static List<List<Integer>> integerListList(String s) {\n` +
             `        s = s.substring(1, s.length() - 1).replaceAll(" ", "");\n` +
             `        if (s.isEmpty()) return new ArrayList<>();\n` +
-            `        var rows = s.substring(1, s.length() - 1).split("\\],\\[");\n` +
+            `        var rows = s.substring(1, s.length() - 1).split("\\\\],\\\\[");\n` +
             `        if (rows[0].isEmpty()) return new ArrayList<>();\n` +
             `        var list = new ArrayList<List<Integer>>();\n` +
             `        for (int i = 0; i < rows.length; i++) {\n` +
