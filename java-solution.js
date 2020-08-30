@@ -26,7 +26,8 @@ class JavaSolution {
         if (this.outputType.startsWith('List<') || 
                 this.inputTypes.includes('List<Boolean>') ||
                 this.inputTypes.includes('List<List<Integer>>') || 
-                this.inputTypes.includes('List<List<String>>')) {
+                this.inputTypes.includes('List<List<String>>') ||
+                this.inputTypes.includes('TreeNode')) {
             template = 'import java.util.*;\n\n' + template; 
         }
         if (this.inputTypes.includes('ListNode[]')) {
@@ -130,7 +131,6 @@ class JavaSolution {
             `    }\n`;
         }
         if (this.inputTypes.includes('TreeNode')) {
-            template = 'import java.util.*;\n\n' + template;
             template += `\n` +
             `    private static TreeNode treeNode(String s) {\n` +
             `        s = s.replace("[", "").replace("]", "").replaceAll(" ", "");\n` +
