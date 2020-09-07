@@ -1,7 +1,35 @@
 class Solution {
 
+    private int[][] a, b;
+
+    private int convolute(int x, int y) {
+        var convolution = 0;
+        for (var i = 0; i < a.length; i++) {
+            for (var j = 0; j < a.length; j++) {
+                convolution += a[i][j] * b[i + x][j + y];
+            }
+        }
+        return convolution;
+    }
+
     public int largestOverlap(int[][] A, int[][] B) {
-        return 0;
+        a = A;
+        b = new int[3 * B.length - 2][3 * B.length - 2];
+        for (var i = 0; i < B.length; i++) {
+            for (var j = 0; j < B.length; j++) {
+                b[i + B.length - 1][j + B.length - 1] = B[i][j];
+            }
+        }
+        var max = 0;
+        for (var x = 0; x < 2 * B.length - 1; x++) {
+            for (var y = 0; y < 2 * B.length - 1; y++) {
+                var overlaps = convolute(x, y);
+                if (overlaps > max) {
+                    max = overlaps;
+                }
+            }
+        }
+        return max;
     }
 
     // java Solution.java "[[1,1,0],[0,1,0],[0,1,0]]" "[[0,0,0],[0,1,1],[0,0,1]]" "3"

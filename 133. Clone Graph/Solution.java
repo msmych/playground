@@ -1,7 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
 
@@ -14,9 +11,9 @@ class Solution {
         if (map.containsKey(node.val)) {
             return map.get(node.val);
         }
-        Node next = new Node(node.val, new ArrayList<>());
+        var next = new Node(node.val, new ArrayList<>());
         map.put(next.val, next);
-        for (Node neighbor : node.neighbors) {
+        for (var neighbor : node.neighbors) {
             next.neighbors.add(cloneGraph(neighbor));
         }
         return next;
