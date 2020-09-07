@@ -10,7 +10,11 @@ b) d|o|g                   --> d1g
 
               1    1  1
      1---5----0----5--8
+<<<<<<< HEAD
      ↓   ↓    ↓    ↓  ↓    
+=======
+     ↓   ↓    ↓    ↓  ↓
+>>>>>>> af0cb88b309315322e43eb65e0e711424f92de0c
 c) i|nternationalizatio|n  --> i18n
 
               1
@@ -25,7 +29,11 @@ Find whether its abbreviation is unique in the dictionary. A word's abbreviation
     There is no word in dictionary such that their abbreviation is equal to the abbreviation of word.
     Else, for all words in dictionary such that their abbreviation is equal to the abbreviation of word those words are equal to word.
 
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> af0cb88b309315322e43eb65e0e711424f92de0c
 
 Example 1:
 
@@ -42,7 +50,11 @@ validWordAbbr.isUnique("cart"); // return True
 validWordAbbr.isUnique("cane"); // return False
 validWordAbbr.isUnique("make"); // return True
 
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> af0cb88b309315322e43eb65e0e711424f92de0c
 
 Constraints:
 
