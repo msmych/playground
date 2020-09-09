@@ -1,23 +1,36 @@
-import java.util.HashSet;
+import java.util.*;
+
+import static java.util.Arrays.*;
+import static java.util.stream.Collectors.*;
 
 class Solution {
 
+    private static class Trie {
+        Map<Character, Trie> children = new HashMap<>();
+    }
+
     public int findMaximumXOR(int[] nums) {
-        int max = 0, mask = 0;
-        for (var i = 31; i >= 0; i--) {
-            mask |= 1 << i;
-            var lefts = new HashSet<Integer>();
-            for (var num : nums) {
-                var left = num & mask;
-                lefts.add(left);
-            }
-            var guess = max | (1 << i);
-            for (var left : lefts) {
-                var xor = left ^ guess;
-                if (lefts.contains(xor)) {
-                    max = guess;
-                    break;
+        var bitmask = 1 << Integer.toBinaryString(stream(nums).max().getAsInt()).length();
+        var strNums = stream(nums).map(num -> bitmask | num).mapToObj(Integer::toBinaryString).map(s -> s.substring(1)).collect(toList());
+        var trie = new Trie();
+        var max = 0;
+        for (var s : strNums) {
+            Trie node = trie, xorNode = trie;
+            var xor = 0;
+            for (var c : s.toCharArray()) {
+                node.children.putIfAbsent(c, new Trie());
+                node = node.children.get(c);
+                var b = c == '1' ? '0' : '1';
+                if (xorNode.children.containsKey(b)) {
+                    xor = (xor << 1) | 1;
+                    xorNode = xorNode.children.get(b);
+                } else {
+                    xor <<= 1;
+                    xorNode = xorNode.children.get(c);
                 }
+            }
+            if (xor > max) {
+                max = xor;
             }
         }
         return max;
