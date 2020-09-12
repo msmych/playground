@@ -1,12 +1,6 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
-import static java.util.Collections.emptySet;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 class Solution {
 
@@ -18,7 +12,7 @@ class Solution {
     public List<List<Integer>> combinationSum3(int k, int n) {
         this.k = k;
         this.n = n;
-        nextCombinations(emptySet());
+        nextCombinations(Set.of());
         return combinations.entrySet().stream()
             .filter(e -> e.getValue())
             .map(Map.Entry::getKey)
@@ -41,7 +35,7 @@ class Solution {
             if (nums.contains(i)) {
                 continue;
             }
-            Set<Integer> next = new HashSet<>(nums);
+            var next = new HashSet<Integer>(nums);
             next.add(i);
             nextCombinations(next);
         }
