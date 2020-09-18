@@ -1,12 +1,14 @@
 class Solution {
 
     public void cleanRoom(Robot robot) {
+        robot.clean();
     }
 
     public static void main(String... args) {
         for (var i = 0; i < args.length; i += 3) {
             var robot = new Robot(intArrArr(args[i]), Integer.parseInt(args[i + 1]), Integer.parseInt(args[i + 2]));
             String row = args[i + 1], col = args[i + 2];
+            new Solution().cleanRoom(robot);
             System.out.println(String.format(
                 "Output: %s | Input: room = %s, row = %s, col = %s",
                 string(robot.room), args[i], row, col));
@@ -46,27 +48,91 @@ class Solution {
 
 }
 
+// ~~~
 class Robot {
+
+    enum Direction { UP, RIGHT, DOWN, LEFT }
 
     final int[][] room;
     final int row, col;
+
+    private int i, j;
+    private Direction d = Direction.UP;
 
     Robot(int[][] room, int row, int col) {
         this.room = room;
         this.row = row;
         this.col = col;
+        this.i = row;
+        this.j = col;
     }
 
     boolean move() {
-        return false;
+        if (!canMove()) {
+            return false;
+        }
+        switch (d) {
+            case UP:
+                i--;
+                break;
+            case RIGHT:
+                j++;
+                break;
+            case DOWN:
+                i++;
+                break;
+            case LEFT:
+                j--;
+                break;
+        }
+        return true;
+    }
+
+    private boolean canMove() {
+        switch (d) {
+            case UP: return i > 0 && room[i - 1][j] != 0;
+            case RIGHT: return j < room[i].length - 1 && room[i][j + 1] != 0;
+            case DOWN: return i < room.length && room[i + 1][j] != 0;
+            case LEFT: return j > 0 && room[i][j - 1] != 0;
+        }
+        throw new IllegalStateException();
     }
 
     void turnLeft() {
+        switch (d) {
+            case UP:
+                d = Direction.LEFT;
+                break;
+            case RIGHT:
+                d = Direction.UP;
+                break;
+            case DOWN:
+                d = Direction.RIGHT;
+                break;
+            case LEFT:
+                d = Direction.DOWN;
+                break;
+        }
     }
 
     void turnRight() {
+        switch (d) {
+            case UP:
+                d = Direction.RIGHT;
+                break;
+            case RIGHT:
+                d = Direction.DOWN;
+                break;
+            case DOWN:
+                d = Direction.LEFT;
+                break;
+            case LEFT:
+                d = Direction.UP;
+                break;
+        }
     }
 
     void clean() {
+        room[i][j] = 8;
     }
 }
