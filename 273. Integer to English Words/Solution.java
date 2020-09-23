@@ -1,10 +1,6 @@
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Queue;
-import java.util.List;
-import java.util.LinkedList;
+import java.util.*;
 
-import static java.lang.Math.max;
+import static java.lang.Math.*;
 
 class Solution {
 
@@ -40,24 +36,23 @@ class Solution {
         nums.put(90, "Ninety");
     }
 
-    private final Queue<String> milleNames = new LinkedList<>(
-        List.of("", "Thousand", "Million", "Billion"));
+    private final Queue<String> milleNames = new LinkedList<>(List.of("", "Thousand", "Million", "Billion"));
 
     public String numberToWords(int num) {
         if (num == 0) {
             return "Zero";
         }
-        String numString = String.valueOf(num);
-        String s = "";
-        for (int i = numString.length(); i > 0; i -= 3) {
+        var numString = String.valueOf(num);
+        var s = "";
+        for (var i = numString.length(); i > 0; i -= 3) {
             if (!s.isEmpty() && !s.startsWith(" ")) {
                 s = " " + s;
             }
-            String milleName = milleNames.poll();
+            var milleName = milleNames.poll();
             if (!milleName.isEmpty()) {
                 milleName = " " + milleName;
             }
-            String part = spell(Integer.parseInt(numString.substring(max(i - 3, 0), i)));
+            var part = spell(Integer.parseInt(numString.substring(max(i - 3, 0), i)));
             if (!part.isEmpty()) {
                 s = part + milleName + s;
             }
@@ -69,7 +64,7 @@ class Solution {
         if (nums.containsKey(n)) {
             return nums.get(n);
         }
-        String s = "";
+        var s = "";
         if (n >= 100) {
             s += nums.get(n / 100) + " Hundred";
         }

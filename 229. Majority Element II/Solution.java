@@ -1,10 +1,7 @@
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
+import static java.util.Arrays.*;
+import static java.util.stream.Collectors.*;
 
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
