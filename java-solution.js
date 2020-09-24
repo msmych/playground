@@ -377,6 +377,7 @@ class JavaSolution {
             case 'int[][]': return ' new int[0][0]';
             case 'double': return ' 0.0';
             case 'boolean': return ' false';
+            case 'char': return " '0'";
             case 'String': return ' ""';
             case 'void': return '';
             default: return ' null';
