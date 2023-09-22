@@ -1,5 +1,6 @@
 plugins {
     java
+    kotlin("jvm") version "1.9.10"
 }
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
