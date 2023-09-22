@@ -1,5 +1,6 @@
 rootProject.name = "solutions-jvm"
 
 include(
-    "solutions"
+    "problems:problem-2860",
+    "problems:problem-2862",
 )
