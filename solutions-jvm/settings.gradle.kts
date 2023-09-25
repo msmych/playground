@@ -6,4 +6,5 @@ include(
     "problems:problem-2860",
     "problems:problem-2862",
     "problems:problem-2865",
+    "problems:problem-2866",
 )
