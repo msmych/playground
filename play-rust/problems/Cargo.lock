@@ -3,49 +3,49 @@
 version = 3
 
 [[package]]
-name = "problem-0456"
+name = "leet-0004"
 version = "0.1.0"
 
 [[package]]
-name = "problem-0557"
+name = "leet-0316"
 version = "0.1.0"
 
 [[package]]
-name = "problem0004"
+name = "leet-0338"
 version = "0.1.0"
 
 [[package]]
-name = "problem0316"
+name = "leet-0389"
 version = "0.1.0"
 
 [[package]]
-name = "problem0338"
+name = "leet-0392"
 version = "0.1.0"
 
 [[package]]
-name = "problem0389"
+name = "leet-0456"
 version = "0.1.0"
 
 [[package]]
-name = "problem0392"
+name = "leet-0557"
 version = "0.1.0"
 
 [[package]]
-name = "problem0880"
+name = "leet-0880"
 version = "0.1.0"
 
 [[package]]
-name = "problem0896"
+name = "leet-0896"
 version = "0.1.0"
 
 [[package]]
-name = "problem0905"
+name = "leet-0905"
 version = "0.1.0"
 
 [[package]]
-name = "problem2405"
+name = "leet-2405"
 version = "0.1.0"
 
 [[package]]
-name = "problem2864"
+name = "leet-2864"
 version = "0.1.0"
