@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import sleep from '../../problems/leet-2621'
+import sleep from './leet-2621'
 
 describe('2621', async () =>  {
     test('case1', async () => {

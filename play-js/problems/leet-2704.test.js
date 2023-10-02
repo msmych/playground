@@ -1,5 +1,5 @@
 import { describe, test } from "bun:test";
-import expect from "../../problems/leet-2704";
+import expect from "./leet-2704";
 
 describe('2704', () => {
     test('case1', () => {

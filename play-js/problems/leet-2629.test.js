@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test"
-import compose from "../../problems/leet-2629"
+import compose from "./leet-2629"
 
 describe('2629', () => {
     test('case 1', () => {

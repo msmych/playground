@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-require("../../problems/leet-2619")
+require("./leet-2619")
 
 describe.todo('2619', () => {
     test('case1', () => {

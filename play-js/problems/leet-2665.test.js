@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import createCounter from "../../problems/leet-2665";
+import createCounter from "./leet-2665";
 
 describe('2665', () => {
     test('case1', () => {

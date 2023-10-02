@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import checkIfInstanceOf from "../../problems/leet-2618";
+import checkIfInstanceOf from "./leet-2618";
 
 describe.todo('2618', () => {
     test('new Date() is instance of Date', () => {
