@@ -2,12 +2,14 @@
 resolver = "2"
 members = [
     "leet-0004",
+    "leet-0229",
     "leet-0316",
     "leet-0338",
     "leet-0389",
     "leet-0392",
     "leet-0456",
     "leet-0557",
+    "leet-0706",
     "leet-0880",
     "leet-0896",
     "leet-0905",
