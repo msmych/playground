@@ -6,6 +6,7 @@ include(
     "problems:leet-0799",
     "problems:leet-0909",
     "problems:leet-1048",
+    "problems:leet-1420",
     "problems:leet-2038",
     "problems:leet-2860",
     "problems:leet-2862",
