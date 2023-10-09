@@ -1,5 +1,6 @@
-class Solution {
+package uk.matvey.play.leet0034.java1;
 
+public class Solution {
     private int[] nums;
     private int target;
 
@@ -72,32 +73,5 @@ class Solution {
             }
         }
         return -1;
-    }
-
-    // java Solution.java "[5,7,7,8,8,10]" "8" "[3,4]" "[5,7,7,8,8,10]" "6" "[-1,-1]"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 3) {
-            String nums = args[i], target = args[i + 1], expected = args[i + 2];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: nums = %s, target = %s",
-                string(new Solution().searchRange(array(nums), Integer.parseInt(target))), expected, nums, target));
-        }
-    }
-
-    private static int[] array(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        if (s.isEmpty()) return new int[0];
-        String[] elements = s.split(",");
-        int[] arr = new int[elements.length];
-        for (int i = 0; i < elements.length; i++)
-            arr[i] = Integer.parseInt(elements[i]);
-        return arr;
-    }
-
-    private static String string(int[] arr) {
-        String s = "";
-        for (int n : arr) s += "," + n;
-        if (!s.isEmpty()) s = s.substring(1);
-        return "[" + s + "]";
     }
 }
