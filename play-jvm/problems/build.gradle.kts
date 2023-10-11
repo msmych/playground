@@ -1,7 +1,7 @@
 subprojects {
     dependencies {
-        if (project.name != "types") {
-            implementation(project(":problems:types"))
+        if (project.name != "utils") {
+            implementation(project(":problems:utils"))
         }
     }
 }
