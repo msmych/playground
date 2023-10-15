@@ -1,5 +1,6 @@
-class Solution {
+package uk.matvey.play.leet1041.java1;
 
+public class Solution {
     private int x, y, d;
 
     public boolean isRobotBounded(String instructions) {
@@ -38,16 +39,6 @@ class Solution {
                 break;
             case 3:
                 x--;
-        }
-    }
-
-    // java Solution.java "GGLLGG" "true" "GG" "false" "GL" "true"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String instructions = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: instructions = %s",
-                new Solution().isRobotBounded(instructions), expected, instructions));
         }
     }
 }
