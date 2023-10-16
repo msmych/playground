@@ -1,7 +1,9 @@
-import java.util.*;
+package uk.matvey.play.leet0119.java1;
 
-class Solution {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Solution {
     public List<Integer> getRow(int rowIndex) {
         return nextRow(new ArrayList<>(), rowIndex);
     }
@@ -15,15 +17,5 @@ class Solution {
             row.add(i == 0 || i == previous.size() ? 1 : previous.get(i - 1) + previous.get(i));
         }
         return nextRow(row, rowIndex - 1);
-    }
-
-    // java Solution.java "3" "[1,3,3,1]"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String rowIndex = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: rowIndex = %s",
-                new Solution().getRow(Integer.parseInt(rowIndex)), expected, rowIndex));
-        }
     }
 }
