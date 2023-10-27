@@ -2,8 +2,7 @@ package uk.matvey.play.leet2038.kotlin1
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import uk.matvey.play.utils.CaseParamsReader
-import uk.matvey.play.utils.CaseParamsReader.CASE_PARAMS_READER
+import uk.matvey.play.utils.TestCaseReader
 
 class SolutionTest {
 
@@ -45,7 +44,8 @@ class SolutionTest {
 
     @Test
     fun case5() {
-        val colors = CASE_PARAMS_READER.readString("case5/colors.txt")
+        val testCaseReader = TestCaseReader("case5");
+        val colors = testCaseReader.readString("colors.txt")
 
         val result = Solution().winnerOfGame(colors)
 

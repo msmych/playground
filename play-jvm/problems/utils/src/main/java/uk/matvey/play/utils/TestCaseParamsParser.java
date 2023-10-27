@@ -1,20 +1,8 @@
 package uk.matvey.play.utils;
 
-import java.io.IOException;
+public class TestCaseParamsParser {
 
-public class CaseParamsReader {
-
-    public static CaseParamsReader CASE_PARAMS_READER = new CaseParamsReader();
-
-    public String readString(String path) {
-        try {
-            return new String(this.getClass().getClassLoader().getResourceAsStream(path).readAllBytes())
-                .replaceAll("^[ \\n\\r]+", "")
-                .replaceAll("[ \\n\\r]+$", "");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public static TestCaseParamsParser TEST_CASE_PARAMS_PARSER = new TestCaseParamsParser();
 
     public int parseInt(String str) {
         return Integer.parseInt(str.trim());

@@ -1,7 +1,7 @@
 package uk.matvey.play.leet0823.java1;
 
 import org.junit.jupiter.api.Test;
-import uk.matvey.play.utils.CaseParamsReader;
+import uk.matvey.play.utils.TestCaseReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +27,8 @@ public class SolutionTest {
 
     @Test
     public void case3() {
-        var arr = CaseParamsReader.CASE_PARAMS_READER.parseIntArr(CaseParamsReader.CASE_PARAMS_READER.readString("case3/arr.txt"));
+        var testCaseReader = new TestCaseReader("case3");
+        var arr = testCaseReader.parseIntArr("/arr.txt");
 
         int result = new Solution().numFactoredBinaryTrees(arr);
 

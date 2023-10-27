@@ -1,7 +1,7 @@
 package uk.matvey.play.leet1425.java1;
 
 import org.junit.jupiter.api.Test;
-import uk.matvey.play.utils.CaseParamsReader;
+import uk.matvey.play.utils.TestCaseReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,7 +63,8 @@ public class SolutionTest {
 
     @Test
     public void case7() {
-        var nums = CaseParamsReader.CASE_PARAMS_READER.parseIntArr(CaseParamsReader.CASE_PARAMS_READER.readString("case7/nums.txt"));
+        var testCaseReader = new TestCaseReader("case7");
+        var nums = testCaseReader.parseIntArr("nums.txt");
 
         int result = new Solution().constrainedSubsetSum(nums, 58823);
 

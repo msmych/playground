@@ -1,9 +1,9 @@
 package uk.matvey.play.leet2251.java1;
 
 import org.junit.jupiter.api.Test;
+import uk.matvey.play.utils.TestCaseReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static uk.matvey.play.utils.CaseParamsReader.CASE_PARAMS_READER;
 
 public class SolutionTest {
 
@@ -39,9 +39,10 @@ public class SolutionTest {
 
     @Test
     public void case4() {
-        int[][] flowers = CASE_PARAMS_READER.parseIntArrArr(CASE_PARAMS_READER.readString("case4/flowers.txt"));
-        int[] people = CASE_PARAMS_READER.parseIntArr(CASE_PARAMS_READER.readString("case4/people.txt"));
-        int[] expected = CASE_PARAMS_READER.parseIntArr(CASE_PARAMS_READER.readString("case4/expected.txt"));
+        TestCaseReader testCaseReader = new TestCaseReader("case4");
+        int[][] flowers = testCaseReader.parseIntArrArr("flowers.txt");
+        int[] people = testCaseReader.parseIntArr("people.txt");
+        int[] expected = testCaseReader.parseIntArr("expected.txt");
 
         int[] result = new Solution().fullBloomFlowers(flowers, people);
 
