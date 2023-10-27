@@ -1,5 +1,6 @@
-class Solution {
+package uk.matvey.play.leet0005.java1;
 
+public class Solution {
     private String longestPalindrome = "";
 
     public String longestPalindrome(String s) {
@@ -32,16 +33,6 @@ class Solution {
     private void updateLongestPalindrome(String palindrome) {
         if (longestPalindrome.length() < palindrome.length()) {
             longestPalindrome = palindrome;
-        }
-    }
-
-    // java Solution.java "babad" "bab" "cbbd" "bb"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String s = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s",
-                new Solution().longestPalindrome(s), expected, s));
         }
     }
 }
