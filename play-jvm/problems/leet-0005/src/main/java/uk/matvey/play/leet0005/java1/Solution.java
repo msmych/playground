@@ -1,38 +1,32 @@
 package uk.matvey.play.leet0005.java1;
 
 public class Solution {
-    private String longestPalindrome = "";
 
     public String longestPalindrome(String s) {
-        int delta;
-        for (int i = 0; i < s.length(); i++) {
-            delta = 0;
-            while (delta <= i && i + delta < s.length()) {
-                if (isEvenPalindrome(s, i, delta)) {
-                    updateLongestPalindrome(s.substring(i - delta, i + delta + 2));
-                } else if (isOddPalindrome(s, i, delta)) {
-                    updateLongestPalindrome(s.substring(i - delta, i + delta + 1));
-                } else break;
-                delta++;
+        var longest = "";
+        for (int mid = 0; mid < s.length(); mid++) {
+            int i = mid;
+            int j = mid;
+            while (i - 1 >= 0 && j + 1 < s.length() && s.charAt(i - 1) == s.charAt(j + 1)) {
+                i--;
+                j++;
             }
-        }
-        return longestPalindrome;
-    }
-
-    private boolean isOddPalindrome(String s, int i, int delta) {
-        if (delta == 0) return true;
-        return s.charAt(i - delta + 1) == s.charAt(i + delta - 1) && s.charAt(i - delta) == s.charAt(i + delta);
-    }
-
-    private boolean isEvenPalindrome(String s, int i, int delta) {
-        if (i + delta + 1 >= s.length()) return false;
-        if (delta == 0) return s.charAt(i) == s.charAt(i + 1);
-        return s.charAt(i) == s.charAt(i + 1) && s.charAt(i - delta + 1) == s.charAt(i + delta) && s.charAt(i - delta) == s.charAt(i + delta + 1);
-    }
-
-    private void updateLongestPalindrome(String palindrome) {
-        if (longestPalindrome.length() < palindrome.length()) {
-            longestPalindrome = palindrome;
-        }
+            if (j - i + 1 > longest.length()) {
+                longest = s.substring(i, j + 1);
+            }
+            if (mid >= s.length() - 1 || s.charAt(mid) != s.charAt(mid + 1)) {
+                continue;
+            }
+            i = mid;
+            j = mid + 1;
+            while (i - 1 >= 0 && j + 1 < s.length() && s.charAt(i - 1) == s.charAt(j + 1)) {
+                i--;
+                j++;
+            }
+            if (j - i + 1 > longest.length()) {
+                longest = s.substring(i, j + 1);
+            }
+         }
+        return longest;
     }
 }
