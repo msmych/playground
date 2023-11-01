@@ -1,7 +1,8 @@
-import java.util.*;
+package uk.matvey.play.leet0076.java1;
 
-class Solution {
+import java.util.HashMap;
 
+public class Solution {
     public String minWindow(String s, String t) {
         if (t.length() > s.length()) {
             return "";
@@ -41,15 +42,5 @@ class Solution {
             }
         }
         return minWindow;
-    }
-
-    // java Solution.java "ADOBECODEBANC" "ABC" "BANC"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 3) {
-            String s = args[i], t = args[i + 1], expected = args[i + 2];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s, t = %s",
-                new Solution().minWindow(s, t), expected, s, t));
-        }
     }
 }

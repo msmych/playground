@@ -1,6 +1,8 @@
-import java.util.*;
+package uk.matvey.play.leet0003.java1;
 
-class Solution {
+import java.util.HashMap;
+
+public class Solution {
     public int lengthOfLongestSubstring(String s) {
         var charIndexes = new HashMap<Character, Integer>();
         var maxLength = 0;
@@ -15,15 +17,5 @@ class Solution {
             charIndexes.put(c, j + 1);
         }
         return maxLength;
-    }
-
-    // java Solution.java "abcabcbb" "3" "bbbbb" "1" "pwwkew" "3"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String s = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s",
-                new Solution().lengthOfLongestSubstring(s), expected, s));
-        }
     }
 }

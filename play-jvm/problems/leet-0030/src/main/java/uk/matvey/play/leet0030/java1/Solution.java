@@ -1,11 +1,9 @@
+package uk.matvey.play.leet0030.java1;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
-import static java.util.Collections.*;
-import static java.util.Arrays.*;
-import static java.util.stream.Collectors.*;
-
-class Solution {
-    
+public class Solution {
     private final Map<Integer, String> cache = new HashMap<>();
 
     private String s;
@@ -16,10 +14,10 @@ class Solution {
     public List<Integer> findSubstring(String s, String[] words) {
         this.s = s;
         if (words.length == 0) {
-            return emptyList();
+            return List.of();
         }
-        wordMap = stream(words)
-            .collect(groupingBy(word -> word, summingInt(word -> 1)));
+        wordMap = Arrays.stream(words)
+            .collect(Collectors.groupingBy(word -> word, Collectors.summingInt(word -> 1)));
         wordCount = words.length;
         wordLength = words[0].length();
         var starting = new ArrayList<Integer>();
@@ -32,7 +30,7 @@ class Solution {
     }
 
     private boolean isConcatenation(int i) {
-        var map = new HashMap<String, Integer>(wordMap);
+        var map = new HashMap<>(wordMap);
         for (var j = i; j < i + wordCount * wordLength; j += wordLength) {
             String word;
             if (cache.containsKey(j)) {
@@ -48,20 +46,5 @@ class Solution {
             }
         }
         return true;
-    }
-
-    // java Solution.java "barfoothefoobarman" "[foo,bar]" "[0,9]" "wordgoodgoodgoodbestword" "[word,good,best,word]" "[]"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 3) {
-            String s = args[i], words = args[i + 1], expected = args[i + 2];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s, words = %s",
-                new Solution().findSubstring(s, array(words)), expected, s, words));
-        }
-    }
-
-    private static String[] array(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        return s.isEmpty() ? new String[0] : s.split(",");
     }
 }
