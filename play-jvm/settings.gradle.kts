@@ -36,6 +36,7 @@ include(
     "problems:leet-0341",
     "problems:leet-0342",
     "problems:leet-0395",
+    "problems:leet-0424",
     "problems:leet-0433",
     "problems:leet-0458",
     "problems:leet-0501",
