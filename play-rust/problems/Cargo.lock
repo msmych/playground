@@ -79,6 +79,10 @@ name = "leet-1512"
 version = "0.1.0"
 
 [[package]]
+name = "leet-1535"
+version = "0.1.0"
+
+[[package]]
 name = "leet-2009"
 version = "0.1.0"
 
@@ -124,4 +128,8 @@ version = "0.1.0"
 
 [[package]]
 name = "leet-2913"
+version = "0.1.0"
+
+[[package]]
+name = "leet-2923"
 version = "0.1.0"
