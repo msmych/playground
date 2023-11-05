@@ -37,21 +37,21 @@ class Solution {
         k: Int,
         nums: IntArray,
     ): Pair<PriorityQueue<Int>, PriorityQueue<Int>> {
-        val small = PriorityQueue<Int>(k / 2, Comparator.reverseOrder())
-        val big = PriorityQueue<Int>(if (k % 2 == 0) k / 2 else k / 2 + 1)
+        val leftHalf = PriorityQueue<Int>(k / 2, Comparator.reverseOrder())
+        val rightHalf = PriorityQueue<Int>(if (k % 2 == 0) k / 2 else k / 2 + 1)
         (0 until k).map { nums[it] }.sorted().forEachIndexed { i, n ->
             if (i < k / 2) {
-                small.offer(n)
+                leftHalf.offer(n)
             } else {
-                big.offer(n)
+                rightHalf.offer(n)
             }
         }
-        return small to big
+        return leftHalf to rightHalf
     }
 
     private fun median(
         k: Int,
-        small: PriorityQueue<Int>,
-        big: PriorityQueue<Int>
-    ) = if (k % 2 == 0) (small.peek().toLong() + big.peek()) / 2.0 else big.peek().toDouble()
+        leftHalf: PriorityQueue<Int>,
+        rightHalf: PriorityQueue<Int>
+    ) = if (k % 2 == 0) (leftHalf.peek().toLong() + rightHalf.peek()) / 2.0 else rightHalf.peek().toDouble()
 }
