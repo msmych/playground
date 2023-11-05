@@ -1,12 +1,14 @@
-import java.util.*;
+package uk.matvey.play.leet0438.java1;
 
-import static java.util.stream.Collectors.*;
-import static java.util.Collections.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-class Solution {
+public class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         if (s.isEmpty() || p.length() > s.length()) {
-            return emptyList();
+            return List.of();
         }
         var pmap = occurrences(p);
         var smap = occurrences(s.substring(0, p.length()));
@@ -31,16 +33,7 @@ class Solution {
     private Map<Character, Integer> occurrences(String s) {
         return s.chars()
             .mapToObj(c -> (char) c)
-            .collect(groupingBy(c -> c, summingInt(c -> 1)));
+            .collect(Collectors.groupingBy(c -> c, Collectors.summingInt(c -> 1)));
     }
 
-    // java Solution.java "cbaebabacd" "abc" "[0, 6]" "abab" "ab" "[0, 1, 2]" "" a "[]" aaaaaaaaaa aaaaaaaaaaaaa "[]"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 3) {
-            String s = args[i], p = args[i + 1], expected = args[i + 2];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s, p = %s",
-                new Solution().findAnagrams(s, p), expected, s, p));
-        }
-    }
 }
