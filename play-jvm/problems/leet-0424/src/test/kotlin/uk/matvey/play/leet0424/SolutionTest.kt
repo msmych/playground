@@ -1,7 +1,8 @@
-package uk.matvey.problems.leet0424.kotlin1
+package uk.matvey.play.leet0424
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import uk.matvey.play.leet0424.kotlin1.Solution
 
 class SolutionTest {
 

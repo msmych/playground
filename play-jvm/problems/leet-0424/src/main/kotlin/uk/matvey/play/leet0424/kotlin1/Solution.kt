@@ -1,4 +1,4 @@
-package uk.matvey.problems.leet0424.kotlin1
+package uk.matvey.play.leet0424.kotlin1
 
 class Solution {
     fun characterReplacement(s: String, k: Int): Int {
