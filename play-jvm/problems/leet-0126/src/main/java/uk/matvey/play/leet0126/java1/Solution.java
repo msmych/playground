@@ -1,9 +1,9 @@
+package uk.matvey.play.leet0126.java1;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
-
-class Solution {
-
+public class Solution {
     private final Queue<List<String>> queue = new LinkedList<>();
 
     private String endWord;
@@ -20,8 +20,8 @@ class Solution {
             for (var size = queue.size(); size > 0; size--) {
                 var words = queue.poll();
                 var nextSet = wordOptions.stream()
-                        .filter(word -> isOneLetterDifference(word, words.get(words.size() - 1)))
-                        .collect(toSet());
+                    .filter(word -> isOneLetterDifference(word, words.get(words.size() - 1)))
+                    .collect(Collectors.toSet());
                 allNextWords.addAll(nextSet);
                 for (String next : nextSet) {
                     var list = new ArrayList<>(words);
@@ -55,26 +55,7 @@ class Solution {
 
     private List<List<String>> relevantLadders() {
         return queue.stream()
-                .filter(list -> list.get(list.size() - 1).equals(endWord))
-                .collect(toList());
-    }
-
-    // java Solution.java "hit" "cog" "[hot,dot,dog,lot,log,cog]" "[[hit,hot,dot,dog,cog],[hit,hot,lot,log,cog]]" "hit" "cog" "[hot,dot,dog,lot,log]" "[]"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 4) {
-            String beginWord = args[i], endWord = args[i + 1], wordList = args[i + 2], expected = args[i + 3];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: beginWord = %s, endWord = %s, wordList = %s",
-                new Solution().findLadders(beginWord, endWord, stringList(wordList)), expected, beginWord, endWord, wordList));
-        }
-    }
-
-    private static List<String> stringList(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        if (s.isEmpty()) return new ArrayList<>();
-        var els = s.split(",");
-        var list = new ArrayList<String>();
-        for (var el : els) list.add(el);
-        return list;
+            .filter(list -> list.get(list.size() - 1).equals(endWord))
+            .collect(Collectors.toList());
     }
 }

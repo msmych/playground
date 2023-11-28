@@ -1,9 +1,11 @@
-import java.util.*;
+package uk.matvey.play.leet0127.java1;
 
-import static java.util.stream.Collectors.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-class Solution {
-
+public class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         var steps = 0;
         var queue = new LinkedList<String>();
@@ -17,7 +19,7 @@ class Solution {
                 }
                 var nextSet = wordOptions.stream()
                     .filter(w -> isOneLetterDifference(w, word))
-                    .collect(toSet());
+                    .collect(Collectors.toSet());
                 if (nextSet.isEmpty() && queue.isEmpty()) {
                     return 0;
                 }
@@ -42,24 +44,5 @@ class Solution {
             }
         }
         return diff == 1;
-    }
-
-    // java Solution.java "hit" "cog" "[hot,dot,dog,lot,log,cog]" "5" "hit" "cog" "[hot,dot,dog,lot,log]" "0"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 4) {
-            String beginWord = args[i], endWord = args[i + 1], wordList = args[i + 2], expected = args[i + 3];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: beginWord = %s, endWord = %s, wordList = %s",
-                new Solution().ladderLength(beginWord, endWord, stringList(wordList)), expected, beginWord, endWord, wordList));
-        }
-    }
-
-    private static List<String> stringList(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        if (s.isEmpty()) return new ArrayList<>();
-        var els = s.split(",");
-        var list = new ArrayList<String>();
-        for (var el : els) list.add(el);
-        return list;
     }
 }

@@ -1,9 +1,9 @@
-import java.util.*;
+package uk.matvey.play.leet0128.java1;
 
-import static java.util.stream.Collectors.*;
+import java.util.HashMap;
+import java.util.Map;
 
-class Solution {
-
+public class Solution {
     public int longestConsecutive(int[] nums) {
         Map<Integer, Integer> fromIntervals = new HashMap<>(), toIntervals = new HashMap<>();
         for (var num : nums) {
@@ -25,7 +25,7 @@ class Solution {
                 fromIntervals.put(from, num);
             }
         }
-        for (var join : toIntervals.keySet().stream().filter(to -> fromIntervals.containsKey(to + 1)).collect(toList())) {
+        for (var join : toIntervals.keySet().stream().filter(to -> fromIntervals.containsKey(to + 1)).toList()) {
             int from = toIntervals.get(join), to = fromIntervals.get(join + 1);
             fromIntervals.put(from, to);
             toIntervals.put(to, from);
@@ -33,25 +33,5 @@ class Solution {
             toIntervals.remove(join);
         }
         return fromIntervals.entrySet().stream().mapToInt(entry -> entry.getValue() - entry.getKey() + 1).max().orElse(0);
-    }
-
-    // java Solution.java "[100, 4, 200, 1, 3, 2]" "4"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String nums = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: nums = %s",
-                new Solution().longestConsecutive(intArr(nums)), expected, nums));
-        }
-    }
-
-    private static int[] intArr(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        if (s.isEmpty()) return new int[0];
-        String[] elements = s.split(",");
-        int[] arr = new int[elements.length];
-        for (int i = 0; i < elements.length; i++)
-            arr[i] = Integer.parseInt(elements[i]);
-        return arr;
     }
 }
