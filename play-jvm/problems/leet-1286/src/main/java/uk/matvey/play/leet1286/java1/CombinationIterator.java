@@ -1,3 +1,5 @@
+package uk.matvey.play.leet1286.java1;
+
 class CombinationIterator {
 
     private final String characters;
