@@ -1,7 +1,10 @@
-import java.util.*;
+package uk.matvey.play.leet0130.java1;
 
-class Solution {
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
+public class Solution {
     private static class Point {
         int i, j;
 
@@ -16,7 +19,7 @@ class Solution {
             if (o == null || getClass() != o.getClass()) return false;
             Point point = (Point) o;
             return i == point.i &&
-            j == point.j;
+                j == point.j;
         }
 
         @Override
@@ -71,43 +74,5 @@ class Solution {
             surrounded.add(new Point(i, j));
         }
         return isSurrounded;
-    }
-
-    // java Solution.java "[[X,X,X,X],[X,O,O,X],[X,X,O,X],[X,O,X,X]]" "[[X,X,X,X],[X,X,X,X],[X,X,X,X],[X,O,X,X]]"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            var board = charArrArr(args[i]);
-            String expected = args[i + 1];
-            new Solution().solve(board);
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: board = %s",
-                string(board), expected, args[i]));
-        }
-    }
-
-    private static char[][] charArrArr(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        if (s.isEmpty()) return new char[0][0];
-        String[] rows = s.substring(1, s.length() - 1).split("\\],\\[");
-        if (rows[0].isEmpty()) return new char[0][0];
-        char[][] arr = new char[rows.length][rows[0].split(",").length];
-        for (int i = 0; i < arr.length; i++) {
-            String[] elements = rows[i].split(",");
-            for (int j = 0; j < arr[i].length; j++)
-                arr[i][j] = elements[j].charAt(0);
-        }
-        return arr;
-    }
-
-    private static String string(char[][] arr) {
-        var s = "";
-        for (var row : arr) {
-            var r = "";
-            for (var c : row) r += "," + c;
-            if (row.length > 0) r = r.substring(1);
-            s += ",[" + r + "]";
-        }
-        if (arr.length > 0) s = s.substring(1);
-        return "[" + s + "]";
     }
 }
