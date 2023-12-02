@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+"leet-1160",
 "leet-1662",
 "leet-0191",
 "leet-1877",
