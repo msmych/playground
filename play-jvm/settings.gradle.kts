@@ -1,6 +1,14 @@
 rootProject.name = "play-jvm"
 
 include(
+"problems:leet-1319",
+"problems:leet-1318",
+"problems:leet-1317",
+"problems:leet-1316",
+"problems:leet-1315",
+"problems:leet-1314",
+"problems:leet-1313",
+"problems:leet-0131",
 "problems:leet-1305",
 "problems:leet-0130",
 "problems:leet-0013",
