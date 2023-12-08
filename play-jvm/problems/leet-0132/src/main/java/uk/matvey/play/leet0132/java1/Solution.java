@@ -1,9 +1,10 @@
-import java.util.*;
+package uk.matvey.play.leet0132.java1;
 
-import static java.util.stream.IntStream.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
 
-class Solution {
-
+public class Solution {
     private final Map<String, Boolean> cache = new HashMap<>();
     private final Map<String, Integer> minCache = new HashMap<>();
 
@@ -22,14 +23,14 @@ class Solution {
                 return 1;
             }
         }
-        int minCut = 1 + range(1, s.length())
-                .mapToObj(i -> s.substring(0, i))
-                .filter(this::isPalindrome)
-                .map(String::length)
-                .map(s::substring)
-                .mapToInt(this::minCut)
-                .min()
-                .getAsInt();
+        int minCut = 1 + IntStream.range(1, s.length())
+            .mapToObj(i -> s.substring(0, i))
+            .filter(this::isPalindrome)
+            .map(String::length)
+            .map(s::substring)
+            .mapToInt(this::minCut)
+            .min()
+            .getAsInt();
         minCache.put(s, minCut);
         return minCut;
     }
@@ -41,15 +42,5 @@ class Solution {
         var isPalindrome = new StringBuffer(s).reverse().toString().equals(s);
         cache.put(s, isPalindrome);
         return isPalindrome;
-    }
-
-    // java Solution.java "aab" "1" "a" "0" "ab" "1"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String s = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s",
-                new Solution().minCut(s), expected, s));
-        }
     }
 }
