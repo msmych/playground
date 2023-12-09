@@ -1,4 +1,6 @@
-class Solution {
+package uk.matvey.play.leet1328.java1;
+
+public class Solution {
     public String breakPalindrome(String palindrome) {
         for (int i = 0; i < palindrome.length(); i++) {
             if ((palindrome.length() % 2 == 0 || i != palindrome.length() / 2) && palindrome.charAt(i) > 'a') {
@@ -9,15 +11,5 @@ class Solution {
             }
         }
         return "";
-    }
-
-    // java Solution.java "abccba" "aaccba" "a" "" aa ab aba abb
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String palindrome = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: palindrome = %s",
-                new Solution().breakPalindrome(palindrome), expected, palindrome));
-        }
     }
 }
