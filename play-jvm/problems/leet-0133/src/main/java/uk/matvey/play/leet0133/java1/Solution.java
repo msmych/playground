@@ -1,7 +1,11 @@
-import java.util.*;
+package uk.matvey.play.leet0133.java1;
 
-class Solution {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+public class Solution {
     private final Map<Integer, Node> map = new HashMap<>();
 
     public Node cloneGraph(Node node) {
@@ -18,7 +22,6 @@ class Solution {
         }
         return next;
     }
-
 }
 
 class Node {
