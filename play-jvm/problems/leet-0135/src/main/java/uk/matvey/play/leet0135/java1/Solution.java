@@ -1,7 +1,8 @@
-import static java.util.Arrays.*;
+package uk.matvey.play.leet0135.java1;
 
-class Solution {
+import java.util.Arrays;
 
+public class Solution {
     public int candy(int[] ratings) {
         var candies = new int[ratings.length];
         var kids = 0;
@@ -23,26 +24,6 @@ class Solution {
                 candies[minIndex] = candies[minIndex + 1] + 1;
             }
         }
-        return stream(candies).sum();
-    }
-
-    // java Solution.java "[1,0,2]" "5" "[1,2,2]" "4"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String ratings = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: ratings = %s",
-                new Solution().candy(intArr(ratings)), expected, ratings));
-        }
-    }
-
-    private static int[] intArr(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        if (s.isEmpty()) return new int[0];
-        String[] elements = s.split(",");
-        int[] arr = new int[elements.length];
-        for (int i = 0; i < elements.length; i++)
-            arr[i] = Integer.parseInt(elements[i]);
-        return arr;
+        return Arrays.stream(candies).sum();
     }
 }
