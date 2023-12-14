@@ -114,6 +114,8 @@ include(
     "problems:leet-1344",
     "problems:leet-1345",
     "problems:leet-1346",
+    "problems:leet-1347",
+    "problems:leet-1348",
     "problems:leet-1356",
     "problems:leet-1420",
     "problems:leet-1424",
