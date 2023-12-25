@@ -1,6 +1,9 @@
-import java.util.*;
+package uk.matvey.play.leet0091.java1;
 
-class Solution {
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
 
     private final Map<String, Integer> cache = new HashMap<>();
 
@@ -27,15 +30,5 @@ class Solution {
         }
         cache.put(s, num);
         return num;
-    }
-
-    // java Solution.java "12" "2" "226" "3"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String s = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: s = %s",
-                new Solution().numDecodings(s), expected, s));
-        }
     }
 }
