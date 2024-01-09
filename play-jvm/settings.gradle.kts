@@ -80,6 +80,7 @@ include(
     "problems:leet-0799",
     "problems:leet-0815",
     "problems:leet-0823",
+    "problems:leet-0872",
     "problems:leet-0909",
     "problems:leet-0935",
     "problems:leet-1022",

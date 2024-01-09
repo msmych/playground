@@ -7,6 +7,7 @@ import static java.util.stream.Collectors.summingInt;
 
 class Solution {
     public String sortString(String s) {
+
         StringBuilder sb = new StringBuilder();
         Map<Character, Integer> map = s.chars()
             .mapToObj(c -> (char) c)
