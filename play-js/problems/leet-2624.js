@@ -4,7 +4,19 @@
  * @return {Array<Array<number>>}
  */
 Array.prototype.snail = function(rowsCount, colsCount) {
-    
+  if (this.length !== rowsCount * colsCount) {
+    return []
+  }
+  const arr = []
+  for (let i = 0; i < rowsCount; i++) {
+    arr.push([])
+  }
+  for (let k = 0; k < this.length; k++) {
+    const j = Math.floor(k / rowsCount)
+    const i = j % 2 === 0 ? k % rowsCount : rowsCount - k % rowsCount - 1
+    arr[i].push(this[k])
+  }
+  return arr
 }
 
 /**
