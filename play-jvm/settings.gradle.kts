@@ -10,6 +10,7 @@ include(
     "problems:leet-0013",
     "problems:leet-0030",
     "problems:leet-0034",
+    "problems:leet-0042",
     "problems:leet-0050",
     "problems:leet-0076",
     "problems:leet-0091",
