@@ -26,7 +26,11 @@ public class TestCaseReader {
         return TEST_CASE_PARAMS_PARSER.parseIntArr(readString(name));
     }
 
+    public Integer[] parseIntegerArr(String name) {
+        return TEST_CASE_PARAMS_PARSER.parseIntegerArr(readString(name));
+    }
+
     public int[][] parseIntArrArr(String name) {
-        return TEST_CASE_PARAMS_PARSER.parseIntArrArr(readString(name));
+        return TEST_CASE_PARAMS_PARSER.parseIntIntArr(readString(name));
     }
 }
