@@ -23,7 +23,25 @@ public class TestCaseParamsParser {
         return arr;
     }
 
-    public int[][] parseIntArrArr(String str) {
+    public Integer[] parseIntegerArr(String str) {
+        if (str.startsWith("[")) {
+            str = str.substring(1);
+        }
+        if (str.endsWith("]")) {
+            str = str.substring(0, str.length() - 1);
+        }
+        String[] parts = str.split(",");
+        Integer[] arr = new Integer[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].equals("null")) {
+                continue;
+            }
+            arr[i] = parseInt(parts[i]);
+        }
+        return arr;
+    }
+
+    public int[][] parseIntIntArr(String str) {
         if (str.startsWith("[[")) {
             str = str.substring(2);
         }
