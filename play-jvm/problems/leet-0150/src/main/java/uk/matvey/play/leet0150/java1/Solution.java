@@ -1,9 +1,12 @@
-import java.util.*;
+package uk.matvey.play.leet0150.java1;
 
-class Solution {
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 
+public class Solution {
     private final List<String> operations = List.of("+", "-", "*", "/");
-    private final Stack<Integer> operands = new Stack<>();
+    private final Deque<Integer> operands = new ArrayDeque<>();
 
     public int evalRPN(String[] tokens) {
         for (var token : tokens) {
@@ -34,20 +37,5 @@ class Solution {
             case "/":
                 operands.push(a / b);
         }
-    }
-
-    // java Solution.java "[2,1,+,3,*]" "9" "[4,13,5,/,+]" "6" "[10,6,9,3,+,-11,*,/,*,17,+,5,+]" "22"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String tokens = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: tokens = %s",
-                new Solution().evalRPN(stringArr(tokens)), expected, tokens));
-        }
-    }
-
-    private static String[] stringArr(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        return s.isEmpty() ? new String[0] : s.split(",");
     }
 }
