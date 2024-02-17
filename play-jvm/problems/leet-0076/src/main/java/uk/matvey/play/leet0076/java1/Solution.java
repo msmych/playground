@@ -3,13 +3,14 @@ package uk.matvey.play.leet0076.java1;
 import java.util.HashMap;
 
 public class Solution {
+
     public String minWindow(String s, String t) {
         if (t.length() > s.length()) {
             return "";
         }
         var minWindow = "";
         var target = new HashMap<Character, Integer>();
-        for (var c : t.toCharArray()) {
+        for (char c : t.toCharArray()) {
             target.put(c, target.getOrDefault(c, 0) + 1);
         }
         var window = new HashMap<Character, Integer>();

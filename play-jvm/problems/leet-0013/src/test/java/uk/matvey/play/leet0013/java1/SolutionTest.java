@@ -3,7 +3,6 @@ package uk.matvey.play.leet0013.java1;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
 

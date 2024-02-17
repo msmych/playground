@@ -19,7 +19,7 @@ class SolutionTest {
         double x = 2.10000;
         int n = 3;
         double out = new Solution().myPow(x, n);
-        assertThat(out).isEqualTo(9.26100,withPrecision(3d));
+        assertThat(out).isEqualTo(9.26100, withPrecision(3d));
     }
 
     @Test
@@ -29,6 +29,7 @@ class SolutionTest {
         double out = new Solution().myPow(x, n);
         assertThat(out).isEqualTo(0.25000);
     }
+
     @Test
     public void case4() {
         double x = 0.44528;
@@ -36,6 +37,7 @@ class SolutionTest {
         double out = new Solution().myPow(x, n);
         assertThat(out).isEqualTo(1.0);
     }
+
     @Test
     public void case5() {
         double x = 1.0;
@@ -43,6 +45,7 @@ class SolutionTest {
         double out = new Solution().myPow(x, n);
         assertThat(out).isEqualTo(1.0);
     }
+
     @Test
     public void case6() {
         double x = 2.0;
@@ -50,6 +53,7 @@ class SolutionTest {
         double out = new Solution().myPow(x, n);
         assertThat(out).isEqualTo(0);
     }
+
     @Test
     public void case7() {
         double x = 1.0;
@@ -67,6 +71,7 @@ class SolutionTest {
         double out = new Solution().myPow(x, n);
         assertThat(out).isEqualTo(-1.0);
     }
+
     @Test
     public void case9() {
         double x = 1.0000000000001;
@@ -74,7 +79,6 @@ class SolutionTest {
         double out = new Solution().myPow(x, n);
         assertThat(out).isEqualTo(0.99979);
     }
-
 
 
 }

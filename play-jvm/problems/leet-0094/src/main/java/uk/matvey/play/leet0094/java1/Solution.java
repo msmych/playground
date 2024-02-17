@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
+
     public List<Integer> inorderTraversal(TreeNode root) {
         var vals = new ArrayList<Integer>();
         var node = root;

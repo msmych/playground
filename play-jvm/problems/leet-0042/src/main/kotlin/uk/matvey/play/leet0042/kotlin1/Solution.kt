@@ -1,9 +1,10 @@
 package uk.matvey.play.leet0042.kotlin1
 
-import java.util.*
+import java.util.Stack
 import kotlin.math.abs
 
 class Solution {
+
     fun trap(height: IntArray): Int {
         val stack = Stack<Int>()
         var trap = 0

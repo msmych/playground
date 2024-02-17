@@ -24,7 +24,7 @@ public class Solution {
         if (s.length() == 2) {
             return n >= 1 && n <= 9 || n == 10 || n == 20 || n > 26 ? 1 : 2;
         }
-        var num = numDecodings(s.substring(1));
+        int num = numDecodings(s.substring(1));
         if (n <= 26) {
             num += numDecodings(s.substring(2));
         }

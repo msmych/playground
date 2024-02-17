@@ -21,7 +21,7 @@ public class Solution {
         wordCount = words.length;
         wordLength = words[0].length();
         var starting = new ArrayList<Integer>();
-        for (var i = 0; i <= s.length() - wordCount * wordLength; i++) {
+        for (int i = 0; i <= s.length() - wordCount * wordLength; i++) {
             if (isConcatenation(i)) {
                 starting.add(i);
             }
@@ -31,7 +31,7 @@ public class Solution {
 
     private boolean isConcatenation(int i) {
         var map = new HashMap<>(wordMap);
-        for (var j = i; j < i + wordCount * wordLength; j += wordLength) {
+        for (int j = i; j < i + wordCount * wordLength; j += wordLength) {
             String word;
             if (cache.containsKey(j)) {
                 word = cache.get(j);
