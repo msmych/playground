@@ -21,11 +21,12 @@ public class Solution {
                 var cityCost = queue.poll();
                 for (Integer nextCity : graph.getOrDefault(cityCost.city, Set.of())) {
                     Integer nextCost = flightsCosts.get(new Flight(cityCost.city, nextCity));
-                    if (nextCost >= minCosts.getOrDefault(nextCity, 99_999)) {
+                    final var costSum = cityCost.cost + nextCost;
+                    if (costSum >= minCosts.getOrDefault(nextCity, 99_999)) {
                         continue;
                     }
-                    var nextCityCost = new CityCost(nextCity, nextCost);
-                    minCosts.put(nextCity, cityCost.cost + nextCost);
+                    var nextCityCost = new CityCost(nextCity, costSum);
+                    minCosts.put(nextCity, costSum);
                     queue.offer(nextCityCost);
                 }
             }

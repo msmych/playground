@@ -1,9 +1,7 @@
 package uk.matvey.play.leet0787.java1;
 
 import org.junit.jupiter.api.Test;
-import uk.matvey.play.utils.TestCaseParamsParser;
 import uk.matvey.play.utils.TestCaseReader;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SolutionTest {
@@ -50,6 +48,6 @@ public class SolutionTest {
 
         int result = new Solution().findCheapestPrice(13, flights, 10, 1, 10);
 
-        assertThat(result).isEqualTo(14);
+        assertThat(result).isEqualTo(-1);
     }
 }
