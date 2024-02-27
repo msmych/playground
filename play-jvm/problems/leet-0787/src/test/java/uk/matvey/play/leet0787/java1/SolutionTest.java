@@ -1,9 +1,7 @@
 package uk.matvey.play.leet0787.java1;
 
 import org.junit.jupiter.api.Test;
-import uk.matvey.play.utils.TestCaseParamsParser;
 import uk.matvey.play.utils.TestCaseReader;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SolutionTest {
