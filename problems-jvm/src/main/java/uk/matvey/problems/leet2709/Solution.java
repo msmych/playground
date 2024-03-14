@@ -1,6 +1,8 @@
 package uk.matvey.problems.leet2709;
 
 import java.util.HashSet;
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class Solution {
     public boolean canTraverseAllPairs(int[] nums) {
@@ -90,5 +92,35 @@ class Solution {
             dsu[a] = b;
             size[b] += size[a];
         }
+    }
+}
+
+class SolutionTest {
+
+    @Test
+    void case1() {
+        var nums = new int[]{2, 3, 6};
+
+        var result = new Solution().canTraverseAllPairs(nums);
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void case2() {
+        var nums = new int[]{3, 9, 5};
+
+        var result = new Solution().canTraverseAllPairs(nums);
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void case3() {
+        var nums = new int[]{4, 3, 12, 8};
+
+        var result = new Solution().canTraverseAllPairs(nums);
+
+        assertThat(result).isTrue();
     }
 }
