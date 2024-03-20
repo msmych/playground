@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "1.9.10"
+    kotlin("jvm") version "1.9.23"
 }
 
 repositories {
@@ -15,4 +15,20 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    sourceSets {
+        test {
+            java.srcDirs("src/test/java", "src/main/java")
+            kotlin.srcDirs("src/test/kotlin", "src/main/kotlin")
+        }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
 }
