@@ -1,4 +1,10 @@
-class Solution {
+package uk.matvey.problems.leet0014;
+
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class Solution {
+
     public String longestCommonPrefix(String[] strs) {
         if (strs.length == 0) {
             return "";
@@ -24,19 +30,21 @@ class Solution {
         }
         return sb.toString();
     }
+}
 
-    // java Solution.java "[flower,flow,flight]" "fl" "[dog,racecar,car]" ""
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String strs = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: strs = %s",
-                new Solution().longestCommonPrefix(array(strs)), expected, strs));
-        }
+class SolutionTest {
+
+    @Test
+    void case1() {
+        var strs = new String[]{"flower", "flow", "flight"};
+
+        assertThat(new Solution().longestCommonPrefix(strs)).isEqualTo("fl");
     }
 
-    private static String[] array(String s) {
-        s = s.substring(1, s.length() - 1).replaceAll(" ", "");
-        return s.isEmpty() ? new String[0] : s.split(",");
+    @Test
+    void case2() {
+        var strs = new String[]{"dog", "racecar", "car"};
+
+        assertThat(new Solution().longestCommonPrefix(strs)).isEqualTo("");
     }
 }
