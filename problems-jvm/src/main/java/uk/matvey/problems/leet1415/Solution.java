@@ -1,8 +1,16 @@
+package uk.matvey.problems.leet1415;
+
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-class Solution {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class Solution {
+
     public String getHappyString(int n, int k) {
         return happy('0', n).stream()
             .skip(k - 1)
@@ -12,7 +20,7 @@ class Solution {
 
     private List<String> happy(char last, int n) {
         if (n == 1) {
-            return List.of("a", "b", "c").stream()
+            return Stream.of("a", "b", "c")
                 .filter(c -> c.indexOf(last) == -1)
                 .collect(Collectors.toList());
         }
@@ -34,14 +42,32 @@ class Solution {
         }
         return happy;
     }
+}
 
-    // java Solution.java "1" "3" "c" "1" "4" "" "3" "9" "cab" "2" "7" "" "10" "100" "abacbabacb"
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 3) {
-            String n = args[i], k = args[i + 1], expected = args[i + 2];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: n = %s, k = %s",
-                new Solution().getHappyString(Integer.parseInt(n), Integer.parseInt(k)), expected, n, k));
-        }
+class SolutionTest {
+
+    @Test
+    void case1() {
+        assertThat(new Solution().getHappyString(1, 3)).isEqualTo("c");
+    }
+
+    @Test
+    void case2() {
+        assertThat(new Solution().getHappyString(1, 4)).isEqualTo("");
+    }
+
+    @Test
+    void case3() {
+        assertThat(new Solution().getHappyString(3, 9)).isEqualTo("cab");
+    }
+
+    @Test
+    void case4() {
+        assertThat(new Solution().getHappyString(2, 7)).isEqualTo("");
+    }
+
+    @Test
+    void case5() {
+        assertThat(new Solution().getHappyString(10, 100)).isEqualTo("abacbabacb");
     }
 }
