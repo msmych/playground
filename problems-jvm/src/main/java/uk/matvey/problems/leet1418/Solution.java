@@ -16,19 +16,28 @@ public class Solution {
             .sorted()
             .toList();
         return Stream.concat(
-                Stream.of(Stream.concat(Stream.of("Table"), food.stream()).collect(Collectors.toList())),
+                Stream.of(Stream.concat(Stream.of("Table"), food.stream()).toList()),
                 orders.stream()
-                    .collect(Collectors.groupingBy(order -> order.get(1),
-                        Collectors.groupingBy(order -> order.get(2),
-                            Collectors.collectingAndThen(Collectors.counting(), Long::intValue))))
+                    .collect(
+                        Collectors.groupingBy(order -> order.get(1),
+                            Collectors.groupingBy(order -> order.get(2),
+                                Collectors.collectingAndThen(Collectors.counting(), Long::intValue)
+                            )
+                        )
+                    )
                     .entrySet().stream()
                     .sorted(Comparator.comparingInt(e -> Integer.parseInt(e.getKey())))
-                    .map(e -> Stream.concat(Stream.of(e.getKey()),
-                            food.stream()
-                                .map(item -> e.getValue().getOrDefault(item, 0))
-                                .map(Object::toString))
-                        .collect(Collectors.toList())))
-            .collect(Collectors.toList());
+                    .map(e ->
+                        Stream.concat(
+                                Stream.of(e.getKey()),
+                                food.stream()
+                                    .map(item -> e.getValue().getOrDefault(item, 0))
+                                    .map(Object::toString)
+                            )
+                            .toList()
+                    )
+            )
+            .toList();
     }
 }
 
@@ -54,7 +63,7 @@ class SolutionTest {
 
     @Test
     void case3() {
-        var orders = List.of(List.of("Laura","2","Bean Burrito"),List.of("Jhon","2","Beef Burrito"),List.of("Melissa","2","Soda"));
+        var orders = List.of(List.of("Laura", "2", "Bean Burrito"), List.of("Jhon", "2", "Beef Burrito"), List.of("Melissa", "2", "Soda"));
 
         final var result = new Solution().displayTable(orders);
 
