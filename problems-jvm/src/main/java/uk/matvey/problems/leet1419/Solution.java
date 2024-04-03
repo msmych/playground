@@ -1,15 +1,23 @@
+package uk.matvey.problems.leet1419;
+
+import org.junit.jupiter.api.Test;
+
 import java.util.HashMap;
 
-class Solution {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class Solution {
+
     public int minNumberOfFrogs(String croakOfFrogs) {
         var map = new HashMap<Character, Integer>();
         if (!croakOfFrogs.endsWith("k")) {
             return -1;
         }
-        int frogs = 0, balance = 0;
-        for (var c : croakOfFrogs.toCharArray()) {
+        int frogs = 0;
+        int balance = 0;
+        for (char c : croakOfFrogs.toCharArray()) {
             switch (c) {
-                case 'c': 
+                case 'c':
                     if (balance == 0) {
                         frogs++;
                     } else {
@@ -45,14 +53,37 @@ class Solution {
         }
         return frogs;
     }
+}
 
-    // java Solution.java "croakcroak" "1" "crcoakroak" "2" "croakcrook" "-1" "croakcroa" "-1" "aoocrrackk" -1 "crocakcroraoakk" 2
-    public static void main(String... args) {
-        for (int i = 0; i < args.length; i += 2) {
-            String croakOfFrogs = args[i], expected = args[i + 1];
-            System.out.println(String.format(
-                "Output: %s | Expected: %s | Input: croakOfFrogs = %s",
-                new Solution().minNumberOfFrogs(croakOfFrogs), expected, croakOfFrogs));
-        }
+class SolutionTest {
+
+    @Test
+    void case1() {
+        assertThat(new Solution().minNumberOfFrogs("croakcroak")).isEqualTo(1);
+    }
+
+    @Test
+    void case2() {
+        assertThat(new Solution().minNumberOfFrogs("crcoakroak")).isEqualTo(2);
+    }
+
+    @Test
+    void case3() {
+        assertThat(new Solution().minNumberOfFrogs("croakcrook")).isEqualTo(-1);
+    }
+
+    @Test
+    void case4() {
+        assertThat(new Solution().minNumberOfFrogs("croakcroa")).isEqualTo(-1);
+    }
+
+    @Test
+    void case5() {
+        assertThat(new Solution().minNumberOfFrogs("aoocrrackk")).isEqualTo(-1);
+    }
+
+    @Test
+    void case6() {
+        assertThat(new Solution().minNumberOfFrogs("crocakcroraoakk")).isEqualTo(2);
     }
 }
