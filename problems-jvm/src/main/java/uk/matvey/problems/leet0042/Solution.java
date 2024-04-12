@@ -1,42 +1,44 @@
 package uk.matvey.problems.leet0042;
 
 import org.junit.jupiter.api.Test;
-import uk.matvey.problems.leet.TestCaseReader;
+
+import java.util.Stack;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Solution {
+class Solution {
 
-    public int firstMissingPositive(int[] nums) {
-        int len = nums.length;
-        boolean hasOne = false;
-        for (int i = 0; i < len; i++) {
-            if (nums[i] == 1) {
-                hasOne = true;
-            } else if (nums[i] <= 0 || nums[i] > len) {
-                nums[i] = 1;
-            }
+    public int trap(int[] height) {
+        if (height.length == 0) {
+            return 0;
         }
-        if (!hasOne) {
-            return 1;
-        }
-        for (int i = 0; i < len; i++) {
-            int n = Math.abs(nums[i]);
-            if (n == len) {
-                nums[0] = -Math.abs(nums[0]);
+        int water = 0;
+        var levels = new Stack<int[]>();
+        levels.push(new int[]{0, height[0]});
+        int lastLevel = height[0];
+        for (int i = 1; i < height.length; i++) {
+            if (height[i] > lastLevel && !levels.isEmpty()) {
+                int[] level;
+                while (!levels.isEmpty()) {
+                    level = levels.peek();
+                    water += (i - level[0] - 1) * (Math.min(height[i], level[1]) - lastLevel);
+                    if (height[i] > level[1]) {
+                        levels.pop();
+                        lastLevel = level[1];
+                    } else {
+                        levels.push(new int[]{i, height[i]});
+                        break;
+                    }
+                }
+                if (levels.isEmpty()) {
+                    levels.push(new int[]{i, height[i]});
+                }
             } else {
-                nums[n] = -Math.abs(nums[n]);
+                levels.push(new int[]{i, height[i]});
+                lastLevel = height[i];
             }
         }
-        for (int i = 1; i < len; i++) {
-            if (nums[i] > 0) {
-                return i;
-            }
-        }
-        if (nums[0] > 0) {
-            return len;
-        }
-        return len + 1;
+        return water;
     }
 }
 
@@ -44,37 +46,19 @@ class SolutionTest {
 
     @Test
     void case1() {
-        var nums = new int[]{1, 2, 0};
+        var height = new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
 
-        int result = new Solution().firstMissingPositive(nums);
+        var result = new Solution().trap(height);
 
-        assertThat(result).isEqualTo(3);
+        assertThat(result).isEqualTo(6);
     }
 
     @Test
     void case2() {
-        var nums = new int[]{3, 4, -1, 1};
+        var height = new int[]{4, 2, 0, 3, 2, 5};
 
-        int result = new Solution().firstMissingPositive(nums);
+        var result = new Solution().trap(height);
 
-        assertThat(result).isEqualTo(2);
-    }
-
-    @Test
-    void case3() {
-        var nums = new int[]{7, 8, 9, 11, 12};
-
-        int result = new Solution().firstMissingPositive(nums);
-
-        assertThat(result).isEqualTo(1);
-    }
-
-    @Test
-    void case4() {
-        var nums = new TestCaseReader("leet0042/case4").parseIntArr("nums.txt");
-
-        int result = new Solution().firstMissingPositive(nums);
-
-        assertThat(result).isEqualTo(100001);
+        assertThat(result).isEqualTo(9);
     }
 }
