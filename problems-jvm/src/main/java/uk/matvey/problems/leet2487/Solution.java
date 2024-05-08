@@ -1,8 +1,10 @@
-package leet2487;
+package uk.matvey.problems.leet2487;
 
-import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import uk.matvey.problems.leet.ListNode;
+
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Solution {
