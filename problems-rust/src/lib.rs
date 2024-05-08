@@ -1,3 +1,4 @@
+mod leet0506;
 mod leet0977;
 mod leet1750;
 mod leet3042;
